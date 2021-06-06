@@ -1,9 +1,10 @@
-import React from 'react';
-
+import "./home.css"
+import { Navbar, AddPost } from "../../Components"
 export const Home = () => {
     return (
-        <div>
-            <h1>Home</h1>
+        <div className="home">
+            <Navbar />
+            <AddPost />
         </div>
     );
 }

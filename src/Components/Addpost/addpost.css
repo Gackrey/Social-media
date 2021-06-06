@@ -1,0 +1,58 @@
+.add-post-box {
+  background-color: white;
+  border-radius: 10px;
+  width: 36%;
+  margin: auto;
+  margin-top: 1.5rem;
+  padding: 10px;
+}
+.create-post-div {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.profile {
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 50%;
+}
+.click-to-open-modal {
+  border-radius: 20px;
+  background-color: #e6e6e6;
+  padding: 0.5rem 12rem 0.5rem 1rem;
+  text-align: start;
+  color: #544f4f;
+  cursor: default;
+}
+.add-otherItems-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  padding: 8px;
+  border-radius: 14px;
+  cursor: default;
+}
+.icon-box:hover {
+  background-color: #e6e6e6;
+}
+.book-icon {
+  width: 24px;
+  height: 24px;
+}
+@media screen and (max-width: 768px) {
+  .add-post-box {
+    width: 90%;
+  }
+  .click-to-open-modal {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+  }
+  .icon-box{
+      padding: 0;
+  }
+}
