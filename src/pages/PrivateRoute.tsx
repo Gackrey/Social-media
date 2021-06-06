@@ -7,8 +7,6 @@ export function PrivateRoute({ path, ...props }: any) {
         const loginStatus = JSON.parse(localData);
         isUserLogin = loginStatus?.isUserLoggedIn
     }
-    console.log(isUserLogin);
-
     return isUserLogin ? (
         <Route {...props} path={path} />
     ) : (

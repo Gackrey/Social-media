@@ -3,11 +3,7 @@ export type stateType = {
     status: string,
     token: string,
     firstname: string,
-    lastname: string,
-    email: string,
     profile_pic: string,
-    bio: string,
-    url: string
 }
 export type signinData = {
     success: boolean,

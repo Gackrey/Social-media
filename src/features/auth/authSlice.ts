@@ -7,11 +7,7 @@ const initialState: stateType = {
   status: 'idle',
   token: '',
   firstname: '',
-  lastname: '',
-  email: '',
-  bio: '',
   profile_pic: '',
-  url: ''
 };
 
 export const SignInUser = createAsyncThunk("/signin",
@@ -57,16 +53,12 @@ export const authSlice = createSlice({
       const localData = localStorage?.getItem("Authorbook")
       if (localData) {
         const localDataParsed = JSON.parse(localData);
-        const { isUserLogin, id, firstname, lastname, email, bio, profile_pic, url } = localDataParsed;
-        state.isUserLogin = isUserLogin;
+        const { isUserLoggedIn, id, firstname, profile_pic } = localDataParsed;
+        state.isUserLogin = isUserLoggedIn;
         state.status = 'idle';
         state.token = id;
         state.firstname = firstname;
-        state.lastname = lastname;
-        state.email = email;
-        state.bio = bio;
         state.profile_pic = profile_pic;
-        state.url = url;
       }
     },
     LogOut(state) {
@@ -81,20 +73,16 @@ export const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(SignInUser.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = 'done';
         state.isUserLogin = true;
         state.token = action.payload.id;
         state.firstname = action.payload.firstname;
-        state.lastname = action.payload.lastname;
-        state.email = action.payload.email;
         localStorage.setItem(
           "Authorbook",
           JSON.stringify({
             isUserLoggedIn: true,
             id: state.token,
             firstname: state.firstname,
-            lastname: state.lastname,
-            email: state.email
           })
         );
       })
@@ -105,26 +93,18 @@ export const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(LoginUser.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = 'done';
         state.isUserLogin = true;
         state.token = action.payload.id;
         state.firstname = action.payload.firstname;
-        state.lastname = action.payload.lastname;
-        state.email = action.payload.email;
-        state.bio = action.payload.bio;
         state.profile_pic = action.payload.profile_pic;
-        state.url = action.payload.url;
         localStorage.setItem(
           "Authorbook",
           JSON.stringify({
             isUserLoggedIn: true,
             id: state.token,
             firstname: state.firstname,
-            lastname: state.lastname,
-            email: state.email,
             profile_pic: state.profile_pic,
-            bio: state.bio,
-            url: state.url
           })
         );
       })
@@ -135,25 +115,19 @@ export const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(AddUserDetails.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = 'done';
         state.profile_pic = action.payload.profile_pic;
-        state.bio = action.payload.bio;
-        state.url = action.payload.url
         const localData = localStorage?.getItem("Authorbook")
         if (localData) {
           const localDataParsed = JSON.parse(localData);
-          const { id, firstname, lastname, email } = localDataParsed;
+          const { id, firstname } = localDataParsed;
           localStorage.setItem(
             "Authorbook",
             JSON.stringify({
               isUserLoggedIn: true,
               id,
               firstname,
-              lastname,
-              email,
               profile_pic: state.profile_pic,
-              bio: state.bio,
-              url: state.url
             })
           );
         }
@@ -164,9 +138,9 @@ export const authSlice = createSlice({
   },
 });
 
-export const { LogOut } = authSlice.actions;
+export const { setDataFromLocal, LogOut } = authSlice.actions;
 
 export const getID = (state: reducerType) => state.auth.token
-export const getLoginState = (state: reducerType) => state.auth.isUserLogin
+export const getStatus = (state: reducerType) => state.auth.status
 
 export default authSlice.reducer;

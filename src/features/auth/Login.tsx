@@ -1,21 +1,31 @@
 import "./auth.css";
 import front from "./Img/front.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from 'react-redux'
-import { LoginUser } from './authSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { getStatus, LoginUser } from './authSlice'
 export const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const status = useSelector(getStatus)
   const [passwordState, setPassState] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  console.log(status);
+  useEffect(() => {
+    if (status === 'error') {
+      setEmail('')
+      setPassword('')
+    }
+    if (status === 'done')
+      navigate('/')
+  }, [navigate, status])
+
   async function LoginHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     await dispatch(LoginUser({ email, password }))
-    navigate("/");
   }
   return (
     <div className="signin">
@@ -47,6 +57,9 @@ export const Login = () => {
               onClick={() => setPassState(!passwordState)}
             />
           </div>
+          {
+            status === 'error' ? <p className="error">No User found with this data</p> : ""
+          }
           <input type="submit" className="submit" value="Login" />
           <p className="other-details other-details-log">
             Don't have an account?
