@@ -1,13 +1,22 @@
 import "./auth.css";
 import front from "./Img/front.jpg";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from 'react-redux'
+import { LoginUser } from './authSlice'
 export const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [passwordState, setPassState] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  async function LoginHandler(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    await dispatch(LoginUser({ email, password }))
+    navigate("/");
+  }
   return (
     <div className="signin">
       <div className="signin-box">
@@ -18,7 +27,7 @@ export const Login = () => {
             <p>A place where writters connect</p>
           </div>
         </div>
-        <form>
+        <form onSubmit={(e) => LoginHandler(e)}>
           <h1 className="heading-st">
             Log <span>IN</span>
           </h1>

@@ -2,7 +2,12 @@ import "./auth.css";
 import front from "./Img/front.jpg";
 import axios from 'axios'
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { AddUserDetails } from './authSlice'
 export const AddDetails = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [bio, setBio] = useState('')
     const [URL, setURL] = useState('')
     const [image, setImage] = useState('')
@@ -20,6 +25,11 @@ export const AddDetails = () => {
             }
         }
     }
+    async function AddDetailsHandler(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        await dispatch(AddUserDetails({ bio, URL, image }))
+        navigate('/')
+    }
     return (
         <div className="signin">
             <div className="signin-box">
@@ -30,7 +40,9 @@ export const AddDetails = () => {
                         <p>A place where writters connect</p>
                     </div>
                 </div>
-                <form className="add-details">
+                <form className="add-details"
+                    onSubmit={(e) => AddDetailsHandler(e)}
+                >
                     <h1 className="heading-st">
                         Account <span>Details</span>
                     </h1>
@@ -46,7 +58,7 @@ export const AddDetails = () => {
                     <input type="text" className="input input-prof" placeholder="Website URL" value={URL}
                         onChange={(e) => setURL(e.target.value)}
                     />
-                    <button className="submit">Create Account</button>
+                    <button type="submit" className="submit">Create Account</button>
                 </form>
             </div>
         </div>

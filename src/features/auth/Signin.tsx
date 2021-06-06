@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from 'react-redux'
+import { SignInUser } from './authSlice'
 export const Signin = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [firstName, setFirstName] = useState('');
   const [lastName, setlastName] = useState('');
   const [email, setEmail] = useState('');
@@ -24,9 +27,13 @@ export const Signin = () => {
     if (confPassword === password) setConPassErrorState(false);
     else setConPassErrorState(true);
   }, [password, confPassword]);
-  function signupHandler(e: React.FormEvent<HTMLFormElement>) {
+
+  async function signupHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    navigate('/add-details')
+    if (phone) {
+      await dispatch(SignInUser({ firstName, lastName, email, phone, password }))
+      navigate('/add-details')
+    }
   }
   return (
     <div className="signin">
