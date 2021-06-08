@@ -1,0 +1,64 @@
+.post {
+  width: 40vw;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+}
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.post-header > h3 {
+  margin-left: 10px;
+}
+.profile {
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 50%;
+}
+.owner-details {
+  margin-left: 1rem;
+}
+.body {
+  margin-left: 10px;
+  max-height: 250px;
+  margin-bottom: 1rem;
+}
+.body > ul {
+  margin-left: 1.3rem;
+}
+.post-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 10px 0 0 0;
+}
+.post-footer-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+.post-footer-icon > span {
+  margin-left: 10px;
+}
+.comment-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.comment-input {
+  width: -webkit-fill-available;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid black;
+  outline: none;
+}
+
+@media screen and (max-width: 768px) {
+  .post {
+    width: 80vw;
+  }
+}

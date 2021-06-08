@@ -13,7 +13,6 @@ export const Login = () => {
   const [passwordState, setPassState] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  console.log(status);
   useEffect(() => {
     if (status === 'error') {
       setEmail('')

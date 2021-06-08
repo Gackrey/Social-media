@@ -1,3 +1,18 @@
-.home{
-    background-color: whitesmoke;
+.home {
+  background-color: whitesmoke;
+}
+.home-body{
+  display: flex;
+  justify-content: center;
+}
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+.all-posts{
+  margin: auto;
+}
+.home-innerbody-2{
+  margin: 2rem 1rem;
 }
