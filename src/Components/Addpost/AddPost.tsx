@@ -5,15 +5,18 @@ import ArticleSVG from './Img/Article.svg'
 import BookPng from "./Img/book.png"
 import CreatePost from "../CreatePost/CreatePost"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 export const AddPost = () => {
     const [saveClick, setSaveState] = useState({ screen: "none", box: "none" });
-    const { profile_pic } = useAppSelector((state) => state.auth)
+    const { profile_pic, id } = useAppSelector((state) => state.auth)
     return (
         <div>
             <CreatePost state={saveClick} />
             <div className="add-post-box">
                 <div className="create-post-div">
-                    <img src={profile_pic} className="profile" alt="profile pic" />
+                    <Link to={`/user-details?id=${id}`}>
+                        <img src={profile_pic} className="profile" alt="profile pic" />
+                    </Link>
                     <div
                         className="click-to-open-modal"
                         onClick={() => setSaveState({ screen: "flex", box: "block" })}

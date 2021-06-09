@@ -24,7 +24,6 @@ export const Home = () => {
         setPosts(posts)
         setLoadStatus(l_status)
     }, [posts, l_status])
-    console.log(allPosts);
     return (
         <div className="home">
             <Navbar />

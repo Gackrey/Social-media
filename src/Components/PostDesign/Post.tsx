@@ -6,6 +6,7 @@ import { faThumbsUp, faComment } from "@fortawesome/free-regular-svg-icons";
 import { postState } from "../../features/Posts/post.types";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom"
 import { useAppSelector } from "../../app/hooks"
 import { getID } from "../../features/auth/authSlice";
 import { deletePost } from "../../features/Posts/postSlice"
@@ -47,7 +48,9 @@ export const Post = ({
   return (
     <div className="post">
       <div className="post-header">
-        <img src={owner.profile_pic} className="profile" alt="profile pic" />
+        <Link to={`/user-details?id=${owner.userID}`}>
+          <img src={owner.profile_pic} className="profile" alt="profile pic" />
+        </Link>
         <div className="post-editer">
           <div className="owner-details">
             <h3>{owner.name}</h3>

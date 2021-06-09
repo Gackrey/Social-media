@@ -36,10 +36,10 @@
   margin: 5px;
   padding: 2px 8px;
   border-radius: 50%;
+  color: gray;
 }
 .close:hover {
   background-color: #c7c2c2;
-  color: white;
 }
 .post-tabs {
   display: flex;
@@ -65,7 +65,7 @@
   color: #0e63c5;
 }
 .post-body {
-  max-height: 250px;
+  height: 140px;
   margin-left: 10px;
   width: 91%;
   resize: none;

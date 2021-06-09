@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactMarkdown from 'react-markdown'
 import { useDispatch } from 'react-redux'
@@ -16,21 +16,6 @@ const CreatePost = ({ state }: any) => {
     const [ScreenDisplay, setScreenDisplay] = useState(state.screen)
     const [body, setBody] = useState('')
     const [tab, setTabs] = useState(1)
-    const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const [currheight, setCurrheight] = useState("35px");
-    useEffect(() => {
-        if (textAreaRef.current !== null) {
-            textAreaRef.current.style.height = currheight;
-        }
-    });
-    useEffect(() => {
-        if (textAreaRef.current !== null) {
-            let textAreaHeight = textAreaRef.current.style.height;
-            textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px";
-            setCurrheight(curr => curr > textAreaHeight ? curr : textAreaHeight)
-        }
-    }, [textAreaRef, body]);
-
     useEffect(() => {
         setBoxDisplay(state.box);
         setScreenDisplay(state.screen)
@@ -83,9 +68,9 @@ const CreatePost = ({ state }: any) => {
                     tab === 1 ? <textarea
                         className="post-body"
                         value={body}
-                        ref={textAreaRef}
                         placeholder="Start putting thoughts into words"
                         onChange={(e) => setBody(e.target.value)}
+                        draggable={false}
                     />
                         : ""
                 }
