@@ -21,15 +21,15 @@
 .owner-details {
   margin-left: 1rem;
 }
-.post-editer{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: -webkit-fill-available;
+.post-editer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: -webkit-fill-available;
 }
-.edit-icon{
-    margin: 0 3px;
-    cursor: pointer;
+.edit-icon {
+  margin: 0 3px;
+  cursor: pointer;
 }
 .body {
   margin-left: 10px;
@@ -66,7 +66,24 @@
   border: 1px solid black;
   outline: none;
 }
-
+.btn-comment {
+  color: #0e63c5;
+  border: none;
+  outline: none;
+  padding: 7px;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 16px;
+}
+.post-reach,.post-reach > p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.likepng {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 @media screen and (max-width: 768px) {
   .post {
     width: 80vw;

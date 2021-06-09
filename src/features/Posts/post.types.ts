@@ -49,3 +49,19 @@ export type deletePostResponse = {
     success: boolean,
     post_id: string
 }
+
+export type likePostState = {
+    _id: string,
+    liked_by: Array<likeState>,
+    token: string
+}
+export type respLikeState = {
+    success:boolean,
+    _id: string,
+    updatedLiked: Array<likeState>,
+}
+export type respDislikeState = {
+    success:boolean,
+    _id: string,
+    liked_by: Array<likeState>,
+}

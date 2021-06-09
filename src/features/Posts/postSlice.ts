@@ -8,6 +8,9 @@ import {
     reducerType,
     deletePostType,
     deletePostResponse,
+    likePostState,
+    respLikeState,
+    respDislikeState
 } from "./post.types";
 const initialState: stateType = {
     userPosts: [],
@@ -48,19 +51,36 @@ export const getAllPost = createAsyncThunk("/get-posts", async () => {
     return response.data;
 });
 
+export const likePost = createAsyncThunk(
+    "/like-post",
+    async ({ _id, liked_by, token }: likePostState) => {
+        const response = await axios.post<respLikeState>(
+            "https://author-book-server.herokuapp.com/post/liked",
+            { _id, liked_by },
+            { headers: { authorization: token } }
+        );
+        return response.data;
+    }
+);
+export const dislikePost = createAsyncThunk(
+    "/dislike-post",
+    async ({ _id, liked_by, token }: likePostState) => {
+        const response = await axios.delete<respDislikeState>(
+            "https://author-book-server.herokuapp.com/post/liked",
+            {
+                headers: { authorization: token },
+                data: { _id, liked_by }
+            }
+        );
+        return response.data;
+    }
+);
 export const postSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
         // postReducer(state, action): any {
         //     switch (action.payload.type) {
-        //         case "CREATE POST":
-        //             state.posts.push(action.payload.payload)
-        //             return state
-        //         case "DELETE POST": return {
-        //             ...state,
-        //             posts: state.posts.push(action.payload)
-        //         }
         //         case "UPDATE POST": return {
         //             ...state,
         //             posts: state.posts.map((post) => {
@@ -69,27 +89,6 @@ export const postSlice = createSlice({
         //                         ...post,
         //                         description: action.payload.description,
         //                         picture: action.payload.picture,
-        //                     }
-        //                 else return post;
-        //             })
-        //         }
-        //         case "LIKE POST": return {
-        //             ...state,
-        //             posts: state.posts.map((post) => {
-        //                 if (post._id === action.payload._id)
-        //                     return { ...post, liked_by: post.liked_by.push(action.payload.likeditem) }
-        //                 else return post;
-        //             })
-        //         }
-        //         case "DISLIKE POST": return {
-        //             ...state,
-        //             posts: state.posts.map((post) => {
-        //                 if (post._id === action.payload._id)
-        //                     return {
-        //                         ...post,
-        //                         liked_by: post.liked_by.filter(
-        //                             (liked_item) => liked_item.userID !== action.payload.userID
-        //                         ),
         //                     }
         //                 else return post;
         //             })
@@ -115,7 +114,6 @@ export const postSlice = createSlice({
         //                 else return post;
         //             })
         //         }
-        //         default: return state;
         //     }
         // },
     },
@@ -151,10 +149,30 @@ export const postSlice = createSlice({
             .addCase(deletePost.rejected, (state) => {
                 state.poststatus = "error";
             })
+            .addCase(likePost.pending, (state) => {
+                state.poststatus = "loading";
+            })
+            .addCase(likePost.fulfilled, (state, action) => {
+                const index = state.allPosts.findIndex(post => post._id === action.payload._id)
+                state.allPosts[index].liked_by = action.payload.updatedLiked
+                state.poststatus = "done";
+            })
+            .addCase(likePost.rejected, (state) => {
+                state.poststatus = "error";
+            })
+            .addCase(dislikePost.pending, (state) => {
+                state.poststatus = "loading";
+            })
+            .addCase(dislikePost.fulfilled, (state, action) => {
+                const index = state.allPosts.findIndex(post => post._id === action.payload._id)
+                state.allPosts[index].liked_by = action.payload.liked_by
+                state.poststatus = "done";
+            })
+            .addCase(dislikePost.rejected, (state) => {
+                state.poststatus = "error";
+            })
     },
 });
-
-// export const { postReducer } = postSlice.actions;
 
 export const getPosts = (state: reducerType) => state.post.allPosts;
 export const getLoadStatus = (state: reducerType) => state.post.loadstatus;

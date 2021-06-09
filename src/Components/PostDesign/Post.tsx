@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare, faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp, faComment } from "@fortawesome/free-regular-svg-icons";
 import { postState } from "../../features/Posts/post.types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom"
-import { useAppSelector } from "../../app/hooks"
+import { Link } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
 import { getID } from "../../features/auth/authSlice";
-import { deletePost } from "../../features/Posts/postSlice"
-import { warningToast, infoToast } from "../Toast/Toast"
+import { deletePost, likePost, dislikePost } from "../../features/Posts/postSlice";
+import { warningToast, infoToast } from "../Toast/Toast";
+import like from "./like.png"
 type Date = {
   date: string;
 };
@@ -36,14 +37,31 @@ export const Post = ({
   liked_by,
   comments,
 }: postState) => {
+  const [likeBtnClick, setLikeBtnState] = useState(false);
   const [commentBtnClick, setCommentBtnState] = useState(false);
   const userID = useSelector(getID);
-  const { token } = useAppSelector((state) => state.auth)
-  const dispatch = useDispatch()
+  const { token } = useAppSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const ispresent = liked_by.filter(people => people.userID === userID)
+    if (ispresent.length > 0)
+      setLikeBtnState(true)
+    else setLikeBtnState(false)
+  }, [userID, liked_by])
   async function deletePostHandler() {
-    infoToast("Deleting your post")
-    await dispatch(deletePost({ _id, owner, token }))
-    warningToast("Post deleted successfully")
+    infoToast("Deleting your post");
+    await dispatch(deletePost({ _id, owner, token }));
+    warningToast("Post deleted successfully");
+  }
+  async function likeHandler() {
+    if (likeBtnClick) {
+      await dispatch(dislikePost({ _id, liked_by, token }))
+      setLikeBtnState(false)
+    }
+    else {
+      await dispatch(likePost({ _id, liked_by, token }))
+      setLikeBtnState(true);
+    }
   }
   return (
     <div className="post">
@@ -63,7 +81,9 @@ export const Post = ({
               ""
             )}
             {owner.userID === userID ? (
-              <FontAwesomeIcon icon={faTrashAlt} className="edit-icon"
+              <FontAwesomeIcon
+                icon={faTrashAlt}
+                className="edit-icon"
                 onClick={deletePostHandler}
               />
             ) : (
@@ -74,11 +94,26 @@ export const Post = ({
       </div>
       <ReactMarkdown className="body">{description}</ReactMarkdown>
       {picture ? <img src={picture} alt="profile pic" /> : ""}
+      <div className="post-reach">
+        <p>
+          {liked_by.length}
+          <img src={like} className="likepng" alt="likes" />
+        </p>
+        <p>
+          {comments.length} comments
+      </p>
+      </div>
+
       <hr />
       <div className="post-footer">
-        <div className="post-footer-icon">
-          <FontAwesomeIcon icon={faThumbsUp} />
-          <span>Like</span>
+        <div className="post-footer-icon" onClick={likeHandler}>
+          <FontAwesomeIcon
+            icon={faThumbsUp}
+            style={{ color: likeBtnClick ? "#00BFFF" : "black" }}
+          />
+          <span style={{ color: likeBtnClick ? "#00BFFF" : "black" }}>
+            {likeBtnClick ? "Liked" : "Like"}
+          </span>
         </div>
         <div
           className="post-footer-icon"
@@ -101,7 +136,7 @@ export const Post = ({
           className="comment-input"
           placeholder="Comment your thoughts"
         />
-        <button className="btn-post">Post</button>
+        <button className="btn-comment">Post</button>
       </div>
     </div>
   );
