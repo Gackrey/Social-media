@@ -17,7 +17,7 @@ export type postState = {
     owner: likeState,
     liked_by: Array<likeState>,
     comments: Array<commentState>,
-    createdAt:string
+    createdAt: string
 }
 export type stateType = {
     userPosts: Array<postState>,
@@ -39,4 +39,13 @@ export type getResponse = {
 export type postResponse = {
     success: boolean;
     savedPost: postState
+}
+export type deletePostType = {
+    _id: string,
+    owner: likeState,
+    token: string
+}
+export type deletePostResponse = {
+    success: boolean,
+    post_id: string
 }

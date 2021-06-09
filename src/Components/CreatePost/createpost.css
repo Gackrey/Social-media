@@ -28,17 +28,17 @@
   display: inline;
 }
 .close {
-  background-color: white;
+  background-color: #f0eaea;
   font-size: 19px;
-  font-weight: bold;
+  font-family: cursive;
   border: none;
   outline: none;
   margin: 5px;
-  padding: 2px 5px;
+  padding: 2px 8px;
   border-radius: 50%;
 }
 .close:hover {
-  background-color: red;
+  background-color: #c7c2c2;
   color: white;
 }
 .post-tabs {

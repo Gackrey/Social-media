@@ -21,6 +21,16 @@
 .owner-details {
   margin-left: 1rem;
 }
+.post-editer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: -webkit-fill-available;
+}
+.edit-icon{
+    margin: 0 3px;
+    cursor: pointer;
+}
 .body {
   margin-left: 10px;
   max-height: 250px;

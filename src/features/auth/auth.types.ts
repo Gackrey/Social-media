@@ -1,5 +1,6 @@
 export type stateType = {
     isUserLogin: boolean,
+    id: string,
     status: string,
     token: string,
     firstname: string,
@@ -53,4 +54,8 @@ export type ReceivedUserType = {
     profile_pic: string,
     bio: string,
     url: string
+}
+export type jwt_decoded = {
+    id: string,
+    iat: number
 }
