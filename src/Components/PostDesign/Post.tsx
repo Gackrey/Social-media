@@ -9,13 +9,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { getID } from "../../features/auth/authSlice";
-import { deletePost, likePost, dislikePost } from "../../features/Posts/postSlice";
-import { warningToast, infoToast } from "../Toast/Toast";
+import { deletePost, likePost, dislikePost, commentPost, deleteCommentfromPost } from "../../features/Posts/postSlice";
+import { successToast, infoToast } from "../Toast/Toast";
 import like from "./like.png"
 type Date = {
   date: string;
 };
-
 function DateCalculator({ date }: Date) {
   let timeElapsed = Date.now() - Date.parse(date);
   let timeElapsed_inminutes = Math.ceil(timeElapsed / 86400);
@@ -39,6 +38,7 @@ export const Post = ({
 }: postState) => {
   const [likeBtnClick, setLikeBtnState] = useState(false);
   const [commentBtnClick, setCommentBtnState] = useState(false);
+  const [comment, setComment] = useState('');
   const userID = useSelector(getID);
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ export const Post = ({
   async function deletePostHandler() {
     infoToast("Deleting your post");
     await dispatch(deletePost({ _id, owner, token }));
-    warningToast("Post deleted successfully");
+    successToast("Post deleted successfully");
   }
   async function likeHandler() {
     if (likeBtnClick) {
@@ -63,8 +63,19 @@ export const Post = ({
       setLikeBtnState(true);
     }
   }
+  async function commentHandler() {
+    infoToast("Adding your comment");
+    await dispatch(commentPost({ _id, comment, comments, token }))
+    setComment('');
+    successToast("Comment added successfully")
+  }
+  async function deleteCommenthandler(comment_id: string, owner: string) {
+    infoToast("Deleting your comment");
+    await dispatch(deleteCommentfromPost({ post_id: _id, comment_id, owner, comments, token }))
+    successToast("Comment deleted successfully");
+  }
   return (
-    <div className="post">
+    <div key={_id} className="post">
       <div className="post-header">
         <Link to={`/user-details?id=${owner.userID}`}>
           <img src={owner.profile_pic} className="profile" alt="profile pic" />
@@ -135,8 +146,29 @@ export const Post = ({
           type="text"
           className="comment-input"
           placeholder="Comment your thoughts"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
         />
-        <button className="btn-comment">Post</button>
+        <button
+          className="btn-comment"
+          onClick={commentHandler}
+        >Post</button>
+      </div>
+      <div style={{ display: commentBtnClick ? "block" : "none" }}>
+        {comments.map(comm => {
+          return <div key={comm._id} className="show-comment-box">
+            <img src={comm.profile_pic} className="profile-com" alt="profile" />
+            <div className="comment-body">
+              <h4>{comm.name}</h4>
+              <p>{comm.message}</p>
+            </div>
+            <FontAwesomeIcon icon={faTrashAlt}
+              className="edit-icon"
+              onClick={() => deleteCommenthandler(comm._id, comm.userID)}
+            />
+          </div>
+        })
+        }
       </div>
     </div>
   );

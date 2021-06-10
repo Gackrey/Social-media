@@ -8,9 +8,11 @@ import {
     reducerType,
     deletePostType,
     deletePostResponse,
-    likePostState,
-    respLikeState,
-    respDislikeState
+    likePostType,
+    respLikeType,
+    commentPostType,
+    respCommentType,
+    delcommentPostType,
 } from "./post.types";
 const initialState: stateType = {
     userPosts: [],
@@ -53,8 +55,8 @@ export const getAllPost = createAsyncThunk("/get-posts", async () => {
 
 export const likePost = createAsyncThunk(
     "/like-post",
-    async ({ _id, liked_by, token }: likePostState) => {
-        const response = await axios.post<respLikeState>(
+    async ({ _id, liked_by, token }: likePostType) => {
+        const response = await axios.post<respLikeType>(
             "https://author-book-server.herokuapp.com/post/liked",
             { _id, liked_by },
             { headers: { authorization: token } }
@@ -64,12 +66,36 @@ export const likePost = createAsyncThunk(
 );
 export const dislikePost = createAsyncThunk(
     "/dislike-post",
-    async ({ _id, liked_by, token }: likePostState) => {
-        const response = await axios.delete<respDislikeState>(
+    async ({ _id, liked_by, token }: likePostType) => {
+        const response = await axios.delete<respLikeType>(
             "https://author-book-server.herokuapp.com/post/liked",
             {
                 headers: { authorization: token },
                 data: { _id, liked_by }
+            }
+        );
+        return response.data;
+    }
+);
+export const commentPost = createAsyncThunk(
+    "/comment-post",
+    async ({ _id, comment, comments, token }: commentPostType) => {
+        const response = await axios.post<respCommentType>(
+            "https://author-book-server.herokuapp.com/post/comment",
+            { _id, comment, comments },
+            { headers: { authorization: token } }
+        );
+        return response.data;
+    }
+);
+export const deleteCommentfromPost = createAsyncThunk(
+    "/uncomment-post",
+    async ({ post_id, comment_id, owner, comments, token }: delcommentPostType) => {
+        const response = await axios.delete<respCommentType>(
+            "https://author-book-server.herokuapp.com/post/comment",
+            {
+                headers: { authorization: token },
+                data: { post_id, comment_id, owner, comments }
             }
         );
         return response.data;
@@ -92,28 +118,7 @@ export const postSlice = createSlice({
         //                     }
         //                 else return post;
         //             })
-        //         }
-        //         case "ADD COMMENT": return {
-        //             ...state,
-        //             posts: state.posts.map((post) => {
-        //                 if (post._id === action.payload._id)
-        //                     return { ...post, comments: post.comments.push(action.payload.comment) }
-        //                 else return post;
-        //             })
-        //         }
-        //         case "DELETE COMMENT": return {
-        //             ...state,
-        //             posts: state.posts.map((post) => {
-        //                 if (post._id === action.payload._id)
-        //                     return {
-        //                         ...post,
-        //                         comments: post.comments.filter(
-        //                             (comment_item) => comment_item.userID !== action.payload.userID
-        //                         ),
-        //                     }
-        //                 else return post;
-        //             })
-        //         }
+        //         }  
         //     }
         // },
     },
@@ -154,7 +159,7 @@ export const postSlice = createSlice({
             })
             .addCase(likePost.fulfilled, (state, action) => {
                 const index = state.allPosts.findIndex(post => post._id === action.payload._id)
-                state.allPosts[index].liked_by = action.payload.updatedLiked
+                state.allPosts[index].liked_by = action.payload.liked_by
                 state.poststatus = "done";
             })
             .addCase(likePost.rejected, (state) => {
@@ -169,6 +174,28 @@ export const postSlice = createSlice({
                 state.poststatus = "done";
             })
             .addCase(dislikePost.rejected, (state) => {
+                state.poststatus = "error";
+            })
+            .addCase(commentPost.pending, (state) => {
+                state.poststatus = "loading";
+            })
+            .addCase(commentPost.fulfilled, (state, action) => {
+                const index = state.allPosts.findIndex(post => post._id === action.payload._id)
+                state.allPosts[index].comments = action.payload.comments
+                state.poststatus = "done";
+            })
+            .addCase(commentPost.rejected, (state) => {
+                state.poststatus = "error";
+            })
+            .addCase(deleteCommentfromPost.pending, (state) => {
+                state.poststatus = "loading";
+            })
+            .addCase(deleteCommentfromPost.fulfilled, (state, action) => {
+                const index = state.allPosts.findIndex(post => post._id === action.payload._id)
+                state.allPosts[index].comments = action.payload.comments
+                state.poststatus = "done";
+            })
+            .addCase(deleteCommentfromPost.rejected, (state) => {
                 state.poststatus = "error";
             })
     },

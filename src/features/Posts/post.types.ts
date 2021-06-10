@@ -4,6 +4,7 @@ export type likeState = {
     userID: string,
 }
 export type commentState = {
+    _id: string
     name: string,
     message: string,
     profile_pic: string,
@@ -50,18 +51,32 @@ export type deletePostResponse = {
     post_id: string
 }
 
-export type likePostState = {
+export type likePostType = {
     _id: string,
     liked_by: Array<likeState>,
     token: string
 }
-export type respLikeState = {
-    success:boolean,
-    _id: string,
-    updatedLiked: Array<likeState>,
-}
-export type respDislikeState = {
-    success:boolean,
+export type respLikeType = {
+    success: boolean,
     _id: string,
     liked_by: Array<likeState>,
+}
+export type commentPostType = {
+    _id: string,
+    comment: string,
+    comments: Array<commentState>,
+    token: string
+}
+export type respCommentType = {
+    success: boolean,
+    _id: string,
+    comments: Array<commentState>
+}
+
+export type delcommentPostType = {
+    post_id: string,
+    comment_id: string,
+    owner: string,
+    comments: Array<commentState>,
+    token: string
 }
