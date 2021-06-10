@@ -92,18 +92,32 @@ const CreatePost = ({ state }: stateType) => {
                     </button>
                 </div>
                 {
-                    tab === 1 ? <textarea
-                        className="post-body"
-                        value={body}
-                        placeholder="Start putting thoughts into words"
-                        onChange={(e) => setBody(e.target.value)}
-                        draggable={false}
-                    />
+                    tab === 1 ?
+                        <div>
+                            <textarea
+                                className="post-body"
+                                value={body}
+                                placeholder="Start putting thoughts into words"
+                                onChange={(e) => setBody(e.target.value)}
+                                draggable={false}
+                            />
+                            {image.length > 5 ?
+                                <img src={image} className="post-ki-chavi" alt="chavi" />
+                                : ""
+                            }
+                        </div>
                         : ""
                 }
                 {
                     tab === 2 ?
-                        <ReactMarkdown className="markdown-body">{body}</ReactMarkdown>
+                        <div>
+                            <ReactMarkdown className="markdown-body">{body}</ReactMarkdown>
+                            {image.length > 5 ? (
+                                <img src={image} className="post-ki-chavi" alt="chavi" />
+                            ) : (
+                                ""
+                            )}
+                        </div>
                         : ""
                 }
                 {
@@ -112,10 +126,6 @@ const CreatePost = ({ state }: stateType) => {
                             <ReactMarkdown >{rules}</ReactMarkdown>
                         </div>
                         : ""
-                }
-                {image.length > 5 ?
-                    <img src={image} className="post-ki-chavi" alt="chavi" />
-                    : ""
                 }
                 <div className="bottom-body">
                     <div className="add-ons">

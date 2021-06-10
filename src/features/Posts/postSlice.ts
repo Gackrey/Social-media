@@ -118,22 +118,6 @@ export const postSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        // postReducer(state, action): any {
-        //     switch (action.payload.type) {
-        //         case "UPDATE POST": return {
-        //             ...state,
-        //             posts: state.posts.map((post) => {
-        //                 if (post._id === action.payload._id)
-        //                     return {
-        //                         ...post,
-        //                         description: action.payload.description,
-        //                         picture: action.payload.picture,
-        //                     }
-        //                 else return post;
-        //             })
-        //         }  
-        //     }
-        // },
     },
     extraReducers: (builder) => {
         builder

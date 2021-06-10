@@ -41,7 +41,7 @@ const EditPost = ({
     setScreenDisplay(state.screen);
     setBody(description);
     setImage(picture ? picture : "")
-  }, [description,picture,state]);
+  }, [description, picture, state]);
   async function editHandler() {
     infoToast("Adding your post");
     await dispatch(
@@ -105,18 +105,32 @@ const EditPost = ({
           </button>
         </div>
         {tab === 1 ? (
-          <textarea
-            className="post-body"
-            value={body}
-            placeholder="Start putting thoughts into words"
-            onChange={(e) => setBody(e.target.value)}
-            draggable={false}
-          />
+          <div>
+            <textarea
+              className="post-body"
+              value={body}
+              placeholder="Start putting thoughts into words"
+              onChange={(e) => setBody(e.target.value)}
+              draggable={false}
+            />
+            {image.length > 5 ? (
+              <img src={image} className="post-ki-chavi" alt="chavi" />
+            ) : (
+              ""
+            )}
+          </div>
         ) : (
           ""
         )}
         {tab === 2 ? (
-          <ReactMarkdown className="markdown-body">{body}</ReactMarkdown>
+          <div>
+            <ReactMarkdown className="markdown-body">{body}</ReactMarkdown>
+            {image.length > 5 ? (
+              <img src={image} className="post-ki-chavi" alt="chavi" />
+            ) : (
+              ""
+            )}
+          </div>
         ) : (
           ""
         )}
@@ -124,11 +138,6 @@ const EditPost = ({
           <div className="rules-body">
             <ReactMarkdown>{rules}</ReactMarkdown>
           </div>
-        ) : (
-          ""
-        )}
-        {image.length > 5 ? (
-          <img src={image} className="post-ki-chavi" alt="chavi" />
         ) : (
           ""
         )}
