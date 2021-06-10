@@ -2,6 +2,8 @@
   padding: 5px 0;
   box-shadow: 0px 0px 8px 0px #717171;
   background-color: white;
+  position: sticky;
+  z-index: 2;
 }
 .navbody {
   display: flex;

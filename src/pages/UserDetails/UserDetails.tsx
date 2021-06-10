@@ -25,7 +25,7 @@ export const UserDetails = () => {
             <Navbar />
             {
                 user_det ?
-                    <div>
+                    <div className="user-details-page">
                         <div className="user-details-box">
                             <div className="name-images">
                                 <img src={user_det?.profile_pic} className="profile" alt="profile pic" />

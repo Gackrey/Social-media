@@ -2,7 +2,7 @@
   width: 40vw;
   margin: 1rem 0;
   padding: 1rem;
-  background-color: whitesmoke;
+  background-color: white;
   border-radius: 10px;
 }
 .post-header {
@@ -104,8 +104,37 @@
   padding: 5px 10px;
   width: -webkit-fill-available;
 }
+.edit-delete-icons{
+  position: relative;
+}
+.icon-utils{
+  position: absolute;
+  right: 5px;
+  width: max-content;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 4px;
+  cursor: default;
+}
+.icon-utils > p{
+  padding: 5px 10px;
+}
+.picture{
+  width: 400px;
+  margin: auto;
+  display: block;
+}
+.utils:hover{
+ background-color: whitesmoke;
+}
 @media screen and (max-width: 768px) {
   .post {
     width: 80vw;
+  }
+  .body > h1{
+    font-size: 1.2rem;
+  }
+  .picture{
+    width: 300px;
   }
 }

@@ -1,6 +1,7 @@
 .home-body{
   display: flex;
   justify-content: center;
+  background-color: whitesmoke;
 }
 .spinner {
     position: absolute;

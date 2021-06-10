@@ -13,6 +13,8 @@ import {
     commentPostType,
     respCommentType,
     delcommentPostType,
+    updatePostType,
+    updatePostResponse
 } from "./post.types";
 const initialState: stateType = {
     userPosts: [],
@@ -22,10 +24,10 @@ const initialState: stateType = {
 };
 export const createNewPost = createAsyncThunk(
     "/create-post",
-    async ({ description, token }: createPost) => {
+    async ({ description, picture, token }: createPost) => {
         const response = await axios.post<postResponse>(
             "https://author-book-server.herokuapp.com/post/create-or-delete",
-            { description, liked_by: [], comments: [] },
+            { description, picture, liked_by: [], comments: [] },
             { headers: { authorization: token } }
         );
         return response.data;
@@ -97,6 +99,17 @@ export const deleteCommentfromPost = createAsyncThunk(
                 headers: { authorization: token },
                 data: { post_id, comment_id, owner, comments }
             }
+        );
+        return response.data;
+    }
+);
+export const updatePost = createAsyncThunk(
+    "/update-post",
+    async ({ _id, description, picture, owner,liked_by, comments,createdAt, token }: updatePostType) => {
+        const response = await axios.post<updatePostResponse>(
+            "https://author-book-server.herokuapp.com/post/update",
+            { _id, description, picture, owner,liked_by,createdAt, comments },
+            { headers: { authorization: token } }
         );
         return response.data;
     }
@@ -196,6 +209,17 @@ export const postSlice = createSlice({
                 state.poststatus = "done";
             })
             .addCase(deleteCommentfromPost.rejected, (state) => {
+                state.poststatus = "error";
+            })
+            .addCase(updatePost.pending, (state) => {
+                state.poststatus = "loading";
+            })
+            .addCase(updatePost.fulfilled, (state, action) => {
+                const index = state.allPosts.findIndex(post => post._id === action.payload.post_id)
+                state.allPosts[index] = action.payload.updatedPost
+                state.poststatus = "done";
+            })
+            .addCase(updatePost.rejected, (state) => {
                 state.poststatus = "error";
             })
     },

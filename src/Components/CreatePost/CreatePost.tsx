@@ -2,19 +2,29 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactMarkdown from 'react-markdown'
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
 import { faBold, faHeading, faItalic, faList, faPen, faEye, faLifeRing } from "@fortawesome/free-solid-svg-icons";
-import ImageSVG from '../Addpost/Img/Image.svg'
 import "./createpost.css"
 import { useAppSelector } from "../../app/hooks"
 import { createNewPost } from '../../features/Posts/postSlice'
 import { rules } from './Rules'
 import { infoToast, successToast } from "../Toast/Toast"
-const CreatePost = ({ state }: any) => {
+
+type stateObj = {
+    screen: string;
+    box: string;
+}
+type stateType = {
+    state: stateObj
+}
+
+const CreatePost = ({ state }: stateType) => {
     const dispatch = useDispatch();
     const { token } = useAppSelector((state) => state.auth)
     const [boxDisplay, setBoxDisplay] = useState(state.box)
     const [ScreenDisplay, setScreenDisplay] = useState(state.screen)
     const [body, setBody] = useState('')
+    const [image, setImage] = useState('')
     const [tab, setTabs] = useState(1)
     useEffect(() => {
         setBoxDisplay(state.box);
@@ -22,7 +32,7 @@ const CreatePost = ({ state }: any) => {
     }, [state]);
     async function createPost() {
         infoToast("Adding your post")
-        await dispatch(createNewPost({ description: body, token }))
+        await dispatch(createNewPost({ description: body, picture: image, token }))
         successToast("Post added successfully")
         closeModal()
     }
@@ -31,6 +41,23 @@ const CreatePost = ({ state }: any) => {
         setScreenDisplay("none");
         setBody('')
     }
+    async function uploadImage(files: FileList | null) {
+        if (files && files[0].size <= 4000000) {
+            try {
+                const formData = new FormData();
+                formData.append("file", files[0]);
+                formData.append("upload_preset", "nyrrojy6");
+                infoToast("Adding image...")
+                const { data: ImageData } = await axios.post("https://api.cloudinary.com/v1_1/dnpapnoo1/image/upload", formData)
+                setImage(ImageData.url);
+                successToast("Image added successfully")
+            }
+            catch {
+                console.error("Couldn't upload image");
+            }
+        }
+    }
+
     return (
         <div className="modal-bg" style={{ display: ScreenDisplay }}>
             <div className="inner-modal" style={{ display: boxDisplay }}>
@@ -86,6 +113,10 @@ const CreatePost = ({ state }: any) => {
                         </div>
                         : ""
                 }
+                {image.length > 5 ?
+                    <img src={image} className="post-ki-chavi" alt="chavi" />
+                    : ""
+                }
                 <div className="bottom-body">
                     <div className="add-ons">
                         <FontAwesomeIcon
@@ -108,7 +139,8 @@ const CreatePost = ({ state }: any) => {
                             className="addon-icon"
                             onClick={() => setBody(curr => curr + '# ')}
                         />
-                        <img src={ImageSVG} alt="img-icon" />
+                        <input type="file" className="custom-image-input" accept="image/*" required
+                            onChange={(e) => uploadImage(e.target.files)} />
                     </div>
                     <div className="btn-div">
                         <button

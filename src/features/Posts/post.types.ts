@@ -31,6 +31,17 @@ export type reducerType = {
 }
 export type createPost = {
     description: string,
+    picture: string,
+    token: string
+}
+export type updatePostType = {
+    _id: string,
+    description: string,
+    picture: string,
+    owner: likeState,
+    liked_by: Array<likeState>,
+    comments: Array<commentState>,
+    createdAt:string,
     token: string
 }
 export type getResponse = {
@@ -79,4 +90,9 @@ export type delcommentPostType = {
     owner: string,
     comments: Array<commentState>,
     token: string
+}
+export type updatePostResponse = {
+    success: boolean,
+    post_id: string,
+    updatedPost: postState
 }
