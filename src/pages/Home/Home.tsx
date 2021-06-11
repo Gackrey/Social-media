@@ -5,15 +5,26 @@ import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { Navbar, AddPost, Post } from "../../Components"
 import { getLoadStatus, getPosts, getAllPost } from '../../features/Posts/postSlice'
+import { getID, getStatus, getUserData } from '../../features/auth/authSlice'
 import { postState } from '../../features/Posts/post.types'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ConnectToPeople } from '../Connect People/ConnectToPeople'
 export const Home = () => {
     const posts = useSelector(getPosts);
     const l_status = useSelector(getLoadStatus);
+    const user_status = useSelector(getStatus);
     const dispatch = useDispatch();
+    const userID = useSelector(getID);
     const [allPosts, setPosts] = useState<Array<postState>>([])
-    const [loadingStatus, setLoadStatus] = useState('')
+    const [userLoadingStatus, setPostLoadStatus] = useState('')
+    const [postLoadingStatus, setUserLoadStatus] = useState('')
+    useEffect(() => {
+        (async function () {
+            await dispatch(getUserData({ _id: userID }))
+        })()
+    }, [dispatch,userID])
+
     useEffect(() => {
         (async function () {
             await dispatch(getAllPost())
@@ -22,13 +33,14 @@ export const Home = () => {
 
     useEffect(() => {
         setPosts(posts)
-        setLoadStatus(l_status)
-    }, [posts, l_status])
+        setPostLoadStatus(l_status);
+        setUserLoadStatus(user_status)
+    }, [posts, l_status,user_status])
     return (
         <div className="home">
             <Navbar />
             <div className="spinner">
-                {loadingStatus === 'loading'
+                {postLoadingStatus === 'loading' || userLoadingStatus === 'loading'
                     ? <Loader
                         type="Oval"
                         color="#00BFFF"
@@ -59,7 +71,7 @@ export const Home = () => {
                     </div>
                 </div>
                 <div className="home-innerbody-2">
-                    <h2>People you may know</h2>
+                    <ConnectToPeople />
                 </div>
             </div>
         </div>

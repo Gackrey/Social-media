@@ -13,7 +13,10 @@ import {
   jwt_decoded,
   updateUserType,
   updateAccountWithoutPasswordType,
-  updateAccountWithPasswordType
+  updateAccountWithPasswordType,
+  getUserType,
+  reqFollowType,
+  respFollowtype
 } from "./auth.types";
 
 const initialState: stateType = {
@@ -23,6 +26,8 @@ const initialState: stateType = {
   token: "",
   firstname: "",
   profile_pic: "",
+  following: [],
+  followers: []
 };
 
 export const SignInUser = createAsyncThunk(
@@ -35,7 +40,16 @@ export const SignInUser = createAsyncThunk(
     return response.data;
   }
 );
-
+export const getUserData = createAsyncThunk(
+  "/get-data",
+  async ({ _id }: getUserType) => {
+    const response = await axios.post<stateType>(
+      "https://author-book-server.herokuapp.com/user/get-user-details",
+      { _id: _id }
+    );
+    return response.data;
+  }
+);
 export const LoginUser = createAsyncThunk(
   "/login",
   async ({ email, password }: LoginType) => {
@@ -98,6 +112,32 @@ export const updateAccountWithPassword = createAsyncThunk(
     return response.data;
   }
 );
+
+export const followUser = createAsyncThunk(
+  "/follow-user",
+  async ({ _id, firstname, lastname, profile_pic, token }: reqFollowType) => {
+    const response = await axios.post<respFollowtype>(
+      "https://author-book-server.herokuapp.com/user/following",
+      { _id, firstname, lastname, profile_pic },
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+
+export const unFollowUser = createAsyncThunk(
+  "/follow-user",
+  async ({ _id, firstname, lastname, profile_pic, token }: reqFollowType) => {
+    const response = await axios.delete<respFollowtype>(
+      "https://author-book-server.herokuapp.com/user/following",
+      {
+        headers: { authorization: token },
+        data: { _id, firstname, lastname, profile_pic }
+      }
+    );
+    return response.data;
+  }
+);
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -143,7 +183,7 @@ export const authSlice = createSlice({
           })
         );
       })
-      .addCase(SignInUser.rejected, (state, action) => {
+      .addCase(SignInUser.rejected, (state) => {
         state.status = "error";
       })
       .addCase(LoginUser.pending, (state) => {
@@ -167,7 +207,7 @@ export const authSlice = createSlice({
           })
         );
       })
-      .addCase(LoginUser.rejected, (state, action) => {
+      .addCase(LoginUser.rejected, (state) => {
         state.status = "error";
       })
       .addCase(AddUserDetails.pending, (state) => {
@@ -191,7 +231,7 @@ export const authSlice = createSlice({
           );
         }
       })
-      .addCase(AddUserDetails.rejected, (state, action) => {
+      .addCase(AddUserDetails.rejected, (state) => {
         state.status = "error";
       })
       .addCase(updateUser.pending, (state) => {
@@ -215,7 +255,7 @@ export const authSlice = createSlice({
           );
         }
       })
-      .addCase(updateUser.rejected, (state, action) => {
+      .addCase(updateUser.rejected, (state) => {
         state.status = "error";
       })
       .addCase(updateAccountWithoutPassword.pending || updateAccountWithPassword.pending, (state) => {
@@ -244,6 +284,27 @@ export const authSlice = createSlice({
       .addCase(updateAccountWithoutPassword.rejected || updateAccountWithPassword.rejected, (state, action) => {
         state.status = "error";
       })
+      .addCase(getUserData.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getUserData.fulfilled, (state, action) => {
+        state.status = "done";
+        state.following = action.payload.following;
+        state.followers = action.payload.followers
+      })
+      .addCase(getUserData.rejected, (state) => {
+        state.status = "error";
+      })
+      .addCase(followUser.pending || unFollowUser.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(followUser.fulfilled || unFollowUser.fulfilled, (state, action) => {
+        state.status = "done";        
+        state.following = action.payload.updatedFollowing;
+      })
+      .addCase(followUser.rejected || unFollowUser.rejected, (state) => {
+        state.status = "error";
+      })
   },
 });
 
@@ -251,5 +312,6 @@ export const { setDataFromLocal, LogOut } = authSlice.actions;
 
 export const getID = (state: reducerType) => state.auth.id;
 export const getStatus = (state: reducerType) => state.auth.status;
-
+export const getUserFollowingList = (state: reducerType) => state.auth.following
+export const getUserFollowerList = (state: reducerType) => state.auth.followers
 export default authSlice.reducer;
