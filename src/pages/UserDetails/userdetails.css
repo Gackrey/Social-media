@@ -28,6 +28,25 @@
   display: none;
   margin-left: 0.8rem;
 }
+.route-icons{
+  position: relative;
+  margin-top: 5px;
+}
+.icon-utils{
+  position: absolute;
+  right: 5px;
+  width: max-content;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 4px;
+  cursor: default;
+}
+.icon-utils > p{
+  padding: 5px 10px;
+}
+.utils:hover{
+  background-color: whitesmoke;
+ }
 @media screen and (max-width: 768px) {
   .more-details {
     display: none;

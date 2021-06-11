@@ -10,7 +10,10 @@ import {
   SignInType,
   AddUserType,
   ReceivedUserType,
-  jwt_decoded
+  jwt_decoded,
+  updateUserType,
+  updateAccountWithoutPasswordType,
+  updateAccountWithPasswordType
 } from "./auth.types";
 
 const initialState: stateType = {
@@ -62,7 +65,39 @@ export const AddUserDetails = createAsyncThunk(
     return response.data;
   }
 );
-
+export const updateUser = createAsyncThunk(
+  "/update-user",
+  async ({ bio, image, URL, token }: updateUserType) => {
+    const response = await axios.post<ReceivedUserType>(
+      "https://author-book-server.herokuapp.com/user/updateUser",
+      { bio, profile_pic: image, url: URL },
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+export const updateAccountWithoutPassword = createAsyncThunk(
+  "/update-account-without-password",
+  async ({ firstname, lastname, email, phone, token }: updateAccountWithoutPasswordType) => {
+    const response = await axios.post<signinData>(
+      "https://author-book-server.herokuapp.com/account/update",
+      { firstname, lastname, email, phone },
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
+export const updateAccountWithPassword = createAsyncThunk(
+  "/update-account-without-password",
+  async ({ firstname, lastname, email, phone, oldpassword, newpassword, token }: updateAccountWithPasswordType) => {
+    const response = await axios.post<signinData>(
+      "https://author-book-server.herokuapp.com/account/update",
+      { firstname, lastname, email, phone, oldpassword, newpassword },
+      { headers: { authorization: token } }
+    );
+    return response.data;
+  }
+);
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -158,7 +193,57 @@ export const authSlice = createSlice({
       })
       .addCase(AddUserDetails.rejected, (state, action) => {
         state.status = "error";
-      });
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.status = "done";
+        state.profile_pic = action.payload.profile_pic;
+        const localData = localStorage?.getItem("Authorbook");
+        if (localData) {
+          const localDataParsed = JSON.parse(localData);
+          const { id, firstname } = localDataParsed;
+          localStorage.setItem(
+            "Authorbook",
+            JSON.stringify({
+              isUserLoggedIn: true,
+              id,
+              firstname,
+              profile_pic: state.profile_pic,
+            })
+          );
+        }
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.status = "error";
+      })
+      .addCase(updateAccountWithoutPassword.pending || updateAccountWithPassword.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateAccountWithoutPassword.fulfilled || updateAccountWithPassword.fulfilled, (state, action) => {
+        state.status = "done";
+        state.isUserLogin = true;
+        state.token = action.payload.id;
+        state.firstname = action.payload.firstname;
+        const localData = localStorage?.getItem("Authorbook");
+        if (localData) {
+          const localDataParsed = JSON.parse(localData);
+          const { profile_pic } = localDataParsed;
+          localStorage.setItem(
+            "Authorbook",
+            JSON.stringify({
+              isUserLoggedIn: true,
+              id: state.token,
+              firstname: state.firstname,
+              profile_pic
+            })
+          );
+        }
+      })
+      .addCase(updateAccountWithoutPassword.rejected || updateAccountWithPassword.rejected, (state, action) => {
+        state.status = "error";
+      })
   },
 });
 

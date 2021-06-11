@@ -52,10 +52,30 @@ export type AddUserType = {
 export type ReceivedUserType = {
     success: boolean,
     profile_pic: string,
-    bio: string,
-    url: string
 }
 export type jwt_decoded = {
     id: string,
     iat: number
+}
+export type updateUserType = {
+    bio: string,
+    URL: string,
+    image: string,
+    token: string
+}
+export type updateAccountWithoutPasswordType = {
+    firstname: string,
+    lastname: string,
+    email: string,
+    phone: number,
+    token: string
+}
+export type updateAccountWithPasswordType = {
+    firstname: string,
+    lastname: string,
+    email: string,
+    phone: number,
+    oldpassword: string,
+    newpassword: string,
+    token: string
 }
