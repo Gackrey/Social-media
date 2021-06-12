@@ -16,7 +16,8 @@ import {
   updateAccountWithPasswordType,
   getUserType,
   reqFollowType,
-  respFollowtype
+  respFollowtype,
+  reqUnFollowType
 } from "./auth.types";
 
 const initialState: stateType = {
@@ -127,12 +128,12 @@ export const followUser = createAsyncThunk(
 
 export const unFollowUser = createAsyncThunk(
   "/follow-user",
-  async ({ _id, firstname, lastname, profile_pic, token }: reqFollowType) => {
+  async ({ _id, token }: reqUnFollowType) => {
     const response = await axios.delete<respFollowtype>(
       "https://author-book-server.herokuapp.com/user/following",
       {
         headers: { authorization: token },
-        data: { _id, firstname, lastname, profile_pic }
+        data: { _id}
       }
     );
     return response.data;

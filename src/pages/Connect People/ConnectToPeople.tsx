@@ -2,7 +2,7 @@ import "./connect.css"
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { getID, getUserFollowingList, getUserFollowerList, followUser } from "../../features/auth/authSlice";
+import { getID, getStatus, getUserFollowingList, getUserFollowerList, followUser } from "../../features/auth/authSlice";
 import { users, resUser } from "./connect.types"
 import { useAppSelector } from "../../app/hooks";
 import { successToast, infoToast } from "../../Components/Toast/Toast";
@@ -11,7 +11,8 @@ export const ConnectToPeople = () => {
     const followingList = useSelector(getUserFollowingList);
     const followerList = useSelector(getUserFollowerList);
     const { token } = useAppSelector((state) => state.auth);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const user_status = useSelector(getStatus);
     const [user_list, setUserList] = useState<users[]>()
     useEffect(() => {
         (async function () {
@@ -42,31 +43,33 @@ export const ConnectToPeople = () => {
         successToast(`Added ${firstname} ${lastname} to your network`)
     }
     return (
-        <div>
-            <h2>People you may know</h2>
-            <div>
-                {
-                    user_list?.map(user => {
-                        if (user._id !== userID && isAlreadyFollowed(user._id))
-                            return <div className="user-box">
-                                <img src={user.profile_pic} className="user-profile" alt="profile" />
-                                <div className="all-user-details">
-                                    <h4>{user.firstname} {user.lastname}</h4>
-                                    <p>{user.followers.length} followers</p>
+        user_status === "done"
+            ? <div>
+                <h2>People you may know</h2>
+                <div>
+                    {
+                        user_list?.map(user => {
+                            if (user._id !== userID && isAlreadyFollowed(user._id))
+                                return <div className="user-box">
+                                    <img src={user.profile_pic} className="user-profile" alt="profile" />
+                                    <div className="all-user-details">
+                                        <h4>{user.firstname} {user.lastname}</h4>
+                                        <p>{user.followers.length} followers</p>
+                                    </div>
+                                    <button className="btn-follow"
+                                        onClick={
+                                            () => followHandler(user._id, user.firstname, user.lastname, user.profile_pic)
+                                        }
+                                    >
+                                        {hasFollowedUser(user._id) ? "Follow back" : "Follow"}
+                                    </button>
                                 </div>
-                                <button className="btn-follow"
-                                    onClick={
-                                        () => followHandler(user._id, user.firstname, user.lastname, user.profile_pic)
-                                    }
-                                >
-                                    {hasFollowedUser(user._id) ? "Follow back" : "Follow"}
-                                </button>
-                            </div>
-                        else return ""
-                    })
-                }
+                            else return ""
+                        })
+                    }
+                </div>
             </div>
-        </div>
+            : <p></p>
     );
 }
 

@@ -23,6 +23,7 @@
 .followers,
 .following {
   margin: 0 1rem;
+  cursor: pointer;
 }
 .more-details-mobile {
   display: none;

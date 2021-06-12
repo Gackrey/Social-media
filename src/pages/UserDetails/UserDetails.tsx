@@ -5,17 +5,23 @@ import { useState, useEffect } from "react";
 import { userDet } from "./userdetails.types";
 import { Navbar, Post } from "../../Components";
 import Loader from "react-loader-spinner";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-import { getID } from "../../features/auth/authSlice";
+import { getID, LogOut } from "../../features/auth/authSlice";
+import { FollowModal } from "../../Components/FollowModal/FollowModal"
+import { ToastContainer } from 'react-toastify';
 export const UserDetails = () => {
   const [utilsState, setUtilsState] = useState(false);
+  const [saveClick, setSaveState] = useState({ screen: "none", box: "none" });
   const id = new URLSearchParams(useLocation().search).get("id");
   const [user_det, setUserDetails] = useState<userDet>();
+  const [tabs, setTabs] = useState(1);
+  const [update, setUpdate] = useState(false)
   const userID = useSelector(getID);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   useEffect(() => {
     (async function () {
       if (id) {
@@ -26,10 +32,11 @@ export const UserDetails = () => {
         setUserDetails(response.data);
       }
     })();
-  }, [id]);
+  }, [update, id]);
   return (
     <div>
       <Navbar />
+      <ToastContainer />
       {user_det ? (
         <div className="user-details-page">
           <div className="user-details-box">
@@ -48,11 +55,20 @@ export const UserDetails = () => {
                 {user_det?.url ? <a href={user_det.url}>{user_det.url}</a> : ""}
               </div>
             </div>
-            <div className="followers">
+            <div className="followers"
+              onClick={() => {
+                setSaveState({ screen: "flex", box: "block" });
+                setTabs(1)
+              }}>
               <h3>Followers</h3>
               <p>{user_det?.followers.length}</p>
             </div>
-            <div className="following">
+            <div className="following"
+              onClick={() => {
+                setSaveState({ screen: "flex", box: "block" });
+                setTabs(2)
+              }}
+            >
               <h3>Following</h3>
               <p>{user_det?.following.length}</p>
             </div>
@@ -87,6 +103,16 @@ export const UserDetails = () => {
                     Update account details
                   </p>
                   <hr />
+                  <p
+                    className="utils"
+                    onClick={() => {
+                      dispatch(LogOut())
+                      navigate("/")
+                    }}
+                  >
+                    Log Out
+                  </p>
+                  <hr />
                   <p className="utils" onClick={() => setUtilsState(false)}>
                     Close
                   </p>
@@ -95,6 +121,13 @@ export const UserDetails = () => {
                 ""
               )}
             </div>
+            <FollowModal
+              tabs={tabs}
+              following={user_det.following}
+              follower={user_det.followers}
+              state={saveClick}
+              setUpdate={setUpdate}
+            />
           </div>
           <div className="more-details-mobile">
             <h3>

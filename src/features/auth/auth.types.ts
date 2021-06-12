@@ -1,6 +1,6 @@
 export type follow = {
-    name: String,
-    profile_pic: String,
+    name: string,
+    profile_pic: string,
     userID: string
 }
 export type stateType = {
@@ -94,6 +94,10 @@ export type reqFollowType = {
     firstname: string,
     lastname: string,
     profile_pic: string,
+    token: string
+}
+export type reqUnFollowType = {
+    _id: string,
     token: string
 }
 export type respFollowtype = {
