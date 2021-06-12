@@ -16,6 +16,7 @@
 }
 .heading {
   font-family: "Courgette", cursive;
+  cursor: default;
 }
 .heading > span {
   font-family: "Oleo Script", cursive;
@@ -60,7 +61,7 @@
   align-items: center;
   justify-content: center;
 }
-.profile {
+.profile-nav {
   width: 3.3rem;
   height: 3.3rem;
   border-radius: 50%;

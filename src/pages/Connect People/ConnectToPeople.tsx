@@ -45,8 +45,8 @@ export const ConnectToPeople = () => {
     return (
         user_status === "done"
             ? <div>
-                <h2>People you may know</h2>
-                <div>
+                <h2 className="heading-ctp">People you may know</h2>
+                <div className="people-list">
                     {
                         user_list?.map(user => {
                             if (user._id !== userID && isAlreadyFollowed(user._id))

@@ -107,7 +107,7 @@ export const UserDetails = () => {
                     className="utils"
                     onClick={() => {
                       dispatch(LogOut())
-                      navigate("/")
+                      navigate("/login")
                     }}
                   >
                     Log Out

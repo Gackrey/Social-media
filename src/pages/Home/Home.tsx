@@ -23,7 +23,7 @@ export const Home = () => {
         (async function () {
             await dispatch(getUserData({ _id: userID }))
         })()
-    }, [dispatch,userID])
+    }, [dispatch, userID])
 
     useEffect(() => {
         (async function () {
@@ -35,7 +35,7 @@ export const Home = () => {
         setPosts(posts)
         setPostLoadStatus(l_status);
         setUserLoadStatus(user_status)
-    }, [posts, l_status,user_status])
+    }, [posts, l_status, user_status])
     return (
         <div className="home">
             <Navbar />
@@ -54,6 +54,11 @@ export const Home = () => {
             <div className="home-body">
                 <div className="home-innerbody-1">
                     <AddPost />
+                    {
+                        window.innerWidth < 768
+                            ? <ConnectToPeople />
+                            : ""
+                    }
                     <div className="all-posts">
                         {
                             allPosts.map(({ _id, description, picture, owner, liked_by, comments, createdAt }) =>
@@ -70,9 +75,14 @@ export const Home = () => {
                         }
                     </div>
                 </div>
-                <div className="home-innerbody-2">
-                    <ConnectToPeople />
-                </div>
+                {
+                    window.innerWidth >= 768
+                        ? <div className="home-innerbody-2">
+                            <ConnectToPeople />
+                        </div>
+                        : ""
+                }
+
             </div>
         </div>
     );

@@ -1,16 +1,21 @@
-.home-body{
+.home-body {
   display: flex;
   justify-content: center;
   background-color: whitesmoke;
 }
 .spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
-.all-posts{
+.all-posts {
   margin: auto;
 }
-.home-innerbody-2{
+.home-innerbody-2 {
   margin: 2rem;
+  position: sticky;
+  left: 0;
+  top: 5rem;
+  z-index: 3;
+  height: 94vh;
 }

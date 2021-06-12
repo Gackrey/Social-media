@@ -141,7 +141,7 @@ export const Post = ({
           </p>
           <p>
             {comments.length} comments
-      </p>
+          </p>
         </div>
 
         <hr />
@@ -191,10 +191,14 @@ export const Post = ({
                 <h4>{comm.name}</h4>
                 <p>{comm.message}</p>
               </div>
-              <FontAwesomeIcon icon={faTrashAlt}
-                className="edit-icon"
-                onClick={() => deleteCommenthandler(comm._id, comm.userID)}
-              />
+              {
+                userID === comm.userID || owner.userID === userID ?
+                  <FontAwesomeIcon icon={faTrashAlt}
+                    className="edit-icon"
+                    onClick={() => deleteCommenthandler(comm._id, comm.userID)}
+                  />
+                  : ""
+              }
             </div>
           })
           }
