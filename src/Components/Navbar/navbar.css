@@ -1,9 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
 .navbar {
   padding: 5px 0;
   box-shadow: 0px 0px 8px 0px #717171;
   background-color: white;
   position: sticky;
   z-index: 2;
+  background-color: #06f;
 }
 .navbody {
   display: flex;
@@ -11,10 +14,12 @@
   align-items: center;
   margin: 0 5rem;
 }
-.logo {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
+.heading {
+  font-family: "Courgette", cursive;
+}
+.heading > span {
+  font-family: "Oleo Script", cursive;
+  color: white;
 }
 .Search {
   display: flex;
@@ -37,11 +42,11 @@
 .search-icon {
   margin-right: 10px;
 }
-.bell-box{
-    padding: 8px 10px;
-    border-radius: 50%;
-    background-color: transparent;
-    margin-right: 3rem;
+.bell-box {
+  padding: 8px 10px;
+  border-radius: 50%;
+  background-color: rgb(197, 197, 197);
+  margin-right: 3rem;
 }
 .bell-box:hover {
     background-color: rgb(228, 225, 225);

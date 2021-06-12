@@ -36,7 +36,7 @@ export const AddDetails = () => {
                 <div className="img-box">
                     <img src={front} className="image" alt="img" />
                     <div className="text-overlay">
-                        <h1>Writter</h1>
+                        <h1 className="heading-st">Writter <span>Club</span></h1>
                         <p>A place where writters connect</p>
                     </div>
                 </div>
