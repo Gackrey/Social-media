@@ -30,9 +30,9 @@
   .people-list {
     display: flex;
     align-items: center;
-    justify-content: center;
     overflow-x: scroll;
-  }
+    width: 100vw;
+}
   .heading-ctp {
     text-align: center;
   }
