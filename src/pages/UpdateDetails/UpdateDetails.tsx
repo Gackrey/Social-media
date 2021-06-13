@@ -28,12 +28,14 @@ export const UpdateDetails = () => {
     const [oldpassword, setOldPassword] = useState('');
     const [newpassword, setNewPassword] = useState('');
     const [phoneErrorState, setPhoneErrorState] = useState(false);
+    const [urlErrorState, setUrlErrorState] = useState(false);
     const [passErrorState, setPassErrorState] = useState(false);
     const [bio, setBio] = useState('')
     const [URL, setURL] = useState('')
     const [image, setImage] = useState('')
     const passregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,15}$/;
     const phoneRegex = /^[2-9]{2}[0-9]{8}$/;
+    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'\\+,;=.]+$/;
     useEffect(() => {
         (async function () {
             const response = await axios.post<userDet>(
@@ -215,8 +217,19 @@ export const UpdateDetails = () => {
                 ></textarea>
                 <label htmlFor="url" >Url</label>
                 <input type="text" name="url" className="input input-prof" placeholder="Website URL" value={URL}
-                    onChange={(e) => setURL(e.target.value)}
+                    onChange={(e) => {
+                        setURL(e.target.value)
+                        if (urlRegex.test(e.target.value)) setUrlErrorState(false);
+                        else setUrlErrorState(true);
+                    }}
                 />
+                <p className="error"
+                    style={{
+                        display: urlErrorState ? "block" : "none",
+                    }}
+                >
+                    Enter a valid URL
+                </p>
                 <button type="submit" className="submit">Update</button>
             </form>
         </div>

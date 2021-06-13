@@ -11,6 +11,8 @@ export const AddDetails = () => {
     const [bio, setBio] = useState('')
     const [URL, setURL] = useState('')
     const [image, setImage] = useState('')
+    const [urlErrorState, setUrlErrorState] = useState(false);
+    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'\\+,;=.]+$/;
     async function uploadImage(files: FileList | null) {
         if (files && files[0].size <= 4000000) {
             try {
@@ -56,8 +58,19 @@ export const AddDetails = () => {
                         onChange={(e) => setBio(e.target.value)}
                     ></textarea>
                     <input type="text" className="input input-prof" placeholder="Website URL" value={URL}
-                        onChange={(e) => setURL(e.target.value)}
+                        onChange={(e) => {
+                            setURL(e.target.value)
+                            if (urlRegex.test(e.target.value)) setUrlErrorState(false);
+                            else setUrlErrorState(true);
+                        }}
                     />
+                    <p className="error"
+                        style={{
+                            display: urlErrorState ? "block" : "none",
+                        }}
+                    >
+                        Enter a valid URL
+                    </p>
                     <button type="submit" className="submit">Create Account</button>
                 </form>
             </div>

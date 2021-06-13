@@ -10,6 +10,6 @@ export function PrivateRoute({ path, ...props }: any) {
     return isUserLogin ? (
         <Route {...props} path={path} />
     ) : (
-        <Navigate replace to="/signup" />
+        <Navigate replace to="/login" />
     );
 }

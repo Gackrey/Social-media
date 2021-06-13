@@ -41,6 +41,9 @@ label {
   font-weight: bold;
   border-radius: 10px;
 }
+.error{
+  text-align: start;
+}
 @media screen and (max-width: 768px) {
   .add-details {
     width: 97vw;

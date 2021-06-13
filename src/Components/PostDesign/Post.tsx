@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-import { getID } from "../../features/auth/authSlice";
+import { getID, getUserFollowingList } from "../../features/auth/authSlice";
 import { deletePost, likePost, dislikePost, commentPost, deleteCommentfromPost } from "../../features/Posts/postSlice";
 import { successToast, infoToast } from "../Toast/Toast";
 import EditPost from '../EditPost/EditPost'
@@ -45,6 +45,7 @@ export const Post = ({
   const userID = useSelector(getID);
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const followingList = useSelector(getUserFollowingList);
   useEffect(() => {
     const ispresent = liked_by.filter(people => people.userID === userID)
     if (ispresent.length > 0)
@@ -82,6 +83,13 @@ export const Post = ({
     await dispatch(deleteCommentfromPost({ post_id: _id, comment_id, owner, comments, token }))
     successToast("Comment deleted successfully");
   }
+  function isFollowed(user_id: string): boolean {
+    const ispresent = followingList.find(followed => followed.userID === user_id)
+    if (ispresent || userID === user_id)
+      return true
+    else
+      return false
+  }
   return (
     <div>
       <EditPost
@@ -94,7 +102,9 @@ export const Post = ({
         createdAt={createdAt}
         state={saveClick}
       />
-      <div key={_id} className="post">
+      <div key={_id}
+        className="post"
+        style={{ display: isFollowed(owner.userID) ? "block" : "none" }}>
         <div className="post-header">
           <Link to={`/user-details?id=${owner.userID}`}>
             <img src={owner.profile_pic} className="profile" alt="profile pic" />

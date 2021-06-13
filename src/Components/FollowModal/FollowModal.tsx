@@ -11,12 +11,16 @@ export const FollowModal = ({ tabs, following, follower, state, setUpdate }: fol
     const [ScreenDisplay, setScreenDisplay] = useState(state.screen)
     const followingList = useSelector(getUserFollowingList);
     const { token } = useAppSelector((state) => state.auth);
+    const [modalHeight, setModalHeight] = useState(0)
     const dispatch = useDispatch()
     useEffect(() => {
         setBoxDisplay(state.box);
         setScreenDisplay(state.screen)
         setCurrTab(tabs)
-    }, [tabs, state]);
+        const height = document.querySelector('.inner-follow-modal')?.clientHeight;
+        if (height)
+            setModalHeight(height)
+    }, [follower.length, following.length, tabs, state]);
     function closeModal() {
         setBoxDisplay("none");
         setScreenDisplay("none");
@@ -36,7 +40,12 @@ export const FollowModal = ({ tabs, following, follower, state, setUpdate }: fol
     }
     return (
         <div className="modal-follow-bg" style={{ display: ScreenDisplay }}>
-            <div className="inner-follow-modal" style={{ display: boxDisplay }}>
+            <div className="inner-follow-modal"
+                style={{
+                    display: boxDisplay,
+                    overflowX: "hidden",
+                    overflowY: modalHeight > 500 ? "scroll" : "hidden"
+                }}>
                 <div className="post-tabs">
                     <button
                         className={currTab === 1 ? "btn-tab active" : "btn-tab"}
