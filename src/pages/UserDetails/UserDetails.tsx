@@ -52,7 +52,15 @@ export const UserDetails = () => {
                   {user_det?.firstname} {user_det?.lastname}
                 </h3>
                 <p>{user_det?.bio}</p>
-                {user_det?.url ? <a href={user_det.url}>{user_det.url}</a> : ""}
+                {
+                  user_det?.url ?
+                    <a href={
+                      user_det.url.slice(0, 4) === 'http'
+                        ? user_det.url
+                        : `http://${user_det.url}`
+                    }>{user_det.url}</a>
+                    : ""
+                }
               </div>
             </div>
             <div className="followers"
@@ -134,7 +142,13 @@ export const UserDetails = () => {
               {user_det?.firstname} {user_det?.lastname}
             </h3>
             <p>{user_det?.bio}</p>
-            {user_det?.url ? <a href={user_det.url}>{user_det.url}</a> : ""}
+            {
+              user_det?.url ?
+                <a href={user_det.url.slice(0, 4) === 'http'
+                  ? user_det.url
+                  : `http://${user_det.url}`}>{user_det.url}</a>
+                : ""
+            }
           </div>
           <div className="all-posts">
             {user_det?.posts.map(

@@ -57,7 +57,7 @@ export const AddDetails = () => {
                     <textarea className="input input-bio" placeholder="Add bio" value={bio} required
                         onChange={(e) => setBio(e.target.value)}
                     ></textarea>
-                    <input type="text" className="input input-prof" placeholder="Website URL" value={URL}
+                    <input type="text" className="input input-prof" placeholder="Your Website URL if any" value={URL}
                         onChange={(e) => {
                             setURL(e.target.value)
                             if (urlRegex.test(e.target.value)) setUrlErrorState(false);

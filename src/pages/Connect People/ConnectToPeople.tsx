@@ -6,6 +6,7 @@ import { getID, getStatus, getUserFollowingList, getUserFollowerList, followUser
 import { users, resUser } from "./connect.types"
 import { useAppSelector } from "../../app/hooks";
 import { successToast, infoToast } from "../../Components/Toast/Toast";
+import { Link } from "react-router-dom";
 export const ConnectToPeople = () => {
     const userID = useSelector(getID);
     const followingList = useSelector(getUserFollowingList);
@@ -51,7 +52,9 @@ export const ConnectToPeople = () => {
                         user_list?.map(user => {
                             if (user._id !== userID && isAlreadyFollowed(user._id))
                                 return <div className="user-box">
-                                    <img src={user.profile_pic} className="user-profile" alt="profile" />
+                                    <Link to={`/user-details?id=${user._id}`} >
+                                        <img src={user.profile_pic} className="user-profile" alt="profile" />
+                                    </Link>
                                     <div className="all-user-details">
                                         <h4>{user.firstname} {user.lastname}</h4>
                                         <p>{user.followers.length} followers</p>
