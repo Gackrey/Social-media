@@ -17,10 +17,13 @@ export const FollowModal = ({ tabs, following, follower, state, setUpdate }: fol
         setBoxDisplay(state.box);
         setScreenDisplay(state.screen)
         setCurrTab(tabs)
+    }, [tabs, state]);
+
+    useEffect(() => {
         const height = document.querySelector('.inner-follow-modal')?.clientHeight;
         if (height)
             setModalHeight(height)
-    }, [follower.length, following.length, tabs, state]);
+    }, [currTab, boxDisplay])
     function closeModal() {
         setBoxDisplay("none");
         setScreenDisplay("none");
@@ -44,7 +47,7 @@ export const FollowModal = ({ tabs, following, follower, state, setUpdate }: fol
                 style={{
                     display: boxDisplay,
                     overflowX: "hidden",
-                    overflowY: modalHeight > 500 ? "scroll" : "hidden"
+                    overflowY: modalHeight > 400 ? "scroll" : "hidden"
                 }}>
                 <div className="post-tabs">
                     <button
