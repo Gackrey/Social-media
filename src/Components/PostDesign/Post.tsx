@@ -101,6 +101,7 @@ export const Post = ({
         comments={comments}
         createdAt={createdAt}
         state={saveClick}
+        setSaveState={setSaveState}
       />
       <div key={_id}
         className="post"

@@ -10,6 +10,10 @@ export type editPostState = {
     owner: likeState;
     liked_by: Array<likeState>;
     comments: Array<commentState>;
-    createdAt:string;
+    createdAt: string;
     state: stateObj;
+    setSaveState: React.Dispatch<React.SetStateAction<{
+        screen: string;
+        box: string;
+    }>>
 }

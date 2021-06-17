@@ -46,7 +46,7 @@ export type updatePostType = {
 }
 export type getResponse = {
     success: boolean;
-    allPosts: postState[]
+    sortedPosts: postState[]
 }
 export type postResponse = {
     success: boolean;

@@ -68,14 +68,14 @@ const CreatePost = ({ state }: stateType) => {
                 <hr />
                 <div className="post-tabs">
                     <button
-                        className={tab === 1 ? "btn-tab active" : "btn-tab"}
+                        className={tab === 1 ? "btn-tab active-underline" : "btn-tab"}
                         onClick={() => setTabs(1)}
                     >
                         <FontAwesomeIcon icon={faPen}
                             className="tab-icon" /> Write
                     </button>
                     <button
-                        className={tab === 2 ? "btn-tab active" : "btn-tab"}
+                        className={tab === 2 ? "btn-tab active-underline" : "btn-tab"}
                         onClick={() => setTabs(2)}
                     >
                         <FontAwesomeIcon icon={faEye}
@@ -83,7 +83,7 @@ const CreatePost = ({ state }: stateType) => {
                         /> Preview
                     </button>
                     <button
-                        className={tab === 3 ? "btn-tab active" : "btn-tab"}
+                        className={tab === 3 ? "btn-tab active-underline" : "btn-tab"}
                         onClick={() => setTabs(3)}
                     >
                         <FontAwesomeIcon icon={faLifeRing}

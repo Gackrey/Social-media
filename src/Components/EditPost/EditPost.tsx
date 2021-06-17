@@ -28,6 +28,7 @@ const EditPost = ({
   comments,
   createdAt,
   state,
+  setSaveState
 }: editPostState) => {
   const dispatch = useDispatch();
   const { token } = useAppSelector((state) => state.auth);
@@ -51,6 +52,7 @@ const EditPost = ({
     closeModal();
   }
   function closeModal() {
+    setSaveState({ screen: "none", box: "none" })
     setBoxDisplay("none");
     setScreenDisplay("none");
     setBody("");
@@ -78,7 +80,7 @@ const EditPost = ({
     <div className="modal-bg" style={{ display: ScreenDisplay }}>
       <div className="inner-modal" style={{ display: boxDisplay }}>
         <div className="modal-heading-box">
-          <h2 className="modal-heading">Start a Composition</h2>
+          <h2 className="modal-heading">Edit your composition</h2>
           <button className="close" onClick={closeModal}>
             X
           </button>

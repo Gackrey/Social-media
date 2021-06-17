@@ -125,7 +125,7 @@ export const postSlice = createSlice({
                 state.poststatus = "loading";
             })
             .addCase(createNewPost.fulfilled, (state, action) => {
-                state.allPosts.push(action.payload.savedPost);
+                state.allPosts.unshift(action.payload.savedPost);
                 state.poststatus = "done";
             })
             .addCase(createNewPost.rejected, (state) => {
@@ -135,7 +135,7 @@ export const postSlice = createSlice({
                 state.loadstatus = "loading";
             })
             .addCase(getAllPost.fulfilled, (state, action) => {
-                state.allPosts = action.payload.allPosts;
+                state.allPosts = action.payload.sortedPosts;
                 state.loadstatus = "done";
             })
             .addCase(getAllPost.rejected, (state) => {
