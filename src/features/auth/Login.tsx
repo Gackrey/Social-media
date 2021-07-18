@@ -21,7 +21,10 @@ export const Login = () => {
     if (status === 'done')
       navigate('/')
   }, [navigate, status])
-
+  function autoFill(){
+    setEmail('test@gmail.com')
+    setPassword('Qwerty123')
+  }
   async function LoginHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     await dispatch(LoginUser({ email, password }))
@@ -60,6 +63,7 @@ export const Login = () => {
             status === 'error' ? <p className="error">No User found with this data</p> : ""
           }
           <input type="submit" className="submit" value="Login" />
+          <button onClick={autoFill} className="guest-login">Guest Login</button>
           <p className="other-details other-details-log">
             Don't have an account?
             <Link to="/signup" className="login-btn">
