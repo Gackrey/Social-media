@@ -1,6 +1,7 @@
 .user-details-page{
   background-color: whitesmoke;
   padding-top: 1rem;
+  min-height: 88vh;
 }
 .profile {
   width: 3.3rem;

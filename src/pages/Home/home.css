@@ -11,6 +11,9 @@
 .all-posts {
   margin: auto;
 }
+.home-innerbody-1{
+  min-height: 88vh;
+}
 .home-innerbody-2 {
   margin: 2rem;
   position: sticky;
