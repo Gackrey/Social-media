@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { userDet } from "./userdetails.types";
-import { Navbar, Post } from "../../Components";
+import { Navbar, UserPost } from "../../Components";
 import Loader from "react-loader-spinner";
 import { useSelector, useDispatch } from "react-redux";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -161,7 +161,7 @@ export const UserDetails = () => {
                 comments,
                 createdAt,
               }) => (
-                <Post
+                <UserPost
                   _id={_id}
                   description={description}
                   picture={picture}
