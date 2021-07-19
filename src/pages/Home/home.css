@@ -11,7 +11,7 @@
 .all-posts {
   margin: auto;
 }
-.home-innerbody-1{
+.home-innerbody-1 {
   min-height: 88vh;
 }
 .home-innerbody-2 {
@@ -21,4 +21,15 @@
   top: 5rem;
   z-index: 3;
   height: 94vh;
+}
+.mobile-home-innerbody-2 {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .home-innerbody-2 {
+    display: none;
+  }
+  .mobile-home-innerbody-2 {
+    display: block;
+  }
 }

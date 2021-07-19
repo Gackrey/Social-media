@@ -54,11 +54,9 @@ export const Home = () => {
             <div className="home-body">
                 <div className="home-innerbody-1">
                     <AddPost />
-                    {
-                        window.innerWidth < 768
-                            ? <ConnectToPeople />
-                            : ""
-                    }
+                    <div className="mobile-home-innerbody-2">
+                        <ConnectToPeople />
+                    </div>
                     <div className="all-posts">
                         {allPosts.length > 0 ?
                             allPosts.map(({ _id, description, picture, owner, liked_by, comments, createdAt }) =>
@@ -76,13 +74,9 @@ export const Home = () => {
                         }
                     </div>
                 </div>
-                {
-                    window.innerWidth >= 768
-                        ? <div className="home-innerbody-2">
-                            <ConnectToPeople />
-                        </div>
-                        : ""
-                }
+                <div className="home-innerbody-2">
+                    <ConnectToPeople />
+                </div>
 
             </div>
         </div>
