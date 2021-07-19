@@ -60,7 +60,7 @@ export const Home = () => {
                             : ""
                     }
                     <div className="all-posts">
-                        {
+                        {allPosts.length > 0 ?
                             allPosts.map(({ _id, description, picture, owner, liked_by, comments, createdAt }) =>
                                 <Post
                                     _id={_id}
@@ -72,6 +72,7 @@ export const Home = () => {
                                     createdAt={createdAt}
                                 />
                             )
+                            : <span className="no-posts-msg">Create Posts or follow users to see posts</span>
                         }
                     </div>
                 </div>

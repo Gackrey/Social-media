@@ -151,27 +151,31 @@ export const UserDetails = () => {
             }
           </div>
           <div className="all-posts">
-            {user_det?.posts.map(
-              ({
-                _id,
-                description,
-                picture,
-                owner,
-                liked_by,
-                comments,
-                createdAt,
-              }) => (
-                <UserPost
-                  _id={_id}
-                  description={description}
-                  picture={picture}
-                  owner={owner}
-                  liked_by={liked_by}
-                  comments={comments}
-                  createdAt={createdAt}
-                />
-              )
-            )}
+            {
+              user_det.posts.length > 0 ?
+                user_det?.posts.map(
+                  ({
+                    _id,
+                    description,
+                    picture,
+                    owner,
+                    liked_by,
+                    comments,
+                    createdAt,
+                  }) => (
+                    <UserPost
+                      _id={_id}
+                      description={description}
+                      picture={picture}
+                      owner={owner}
+                      liked_by={liked_by}
+                      comments={comments}
+                      createdAt={createdAt}
+                    />
+                  )
+                )
+                : <span className="no-posts-msg">No posts to display</span>
+            }
           </div>
         </div>
       ) : (
