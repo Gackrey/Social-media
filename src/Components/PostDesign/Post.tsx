@@ -73,10 +73,15 @@ export const Post = ({
     }
   }
   async function commentHandler() {
-    infoToast("Adding your comment");
-    await dispatch(commentPost({ _id, comment, comments, token }))
-    setComment('');
-    successToast("Comment added successfully")
+    if (comment.length > 0) {
+      infoToast("Adding your comment");
+      await dispatch(commentPost({ _id, comment, comments, token }))
+      setComment('');
+      successToast("Comment added successfully")
+    }
+    else {
+      infoToast("Can't add an empty comment")
+    }
   }
   async function deleteCommenthandler(comment_id: string, owner: string) {
     infoToast("Deleting your comment");

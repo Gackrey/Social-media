@@ -15,12 +15,13 @@
   min-height: 88vh;
 }
 .home-innerbody-2 {
-  margin: 2rem;
-  position: sticky;
-  left: 0;
-  top: 5rem;
-  z-index: 3;
-  height: 94vh;
+    margin: 2rem;
+    position: sticky;
+    left: 0;
+    top: 4rem;
+    z-index: 3;
+    height: 84vh;
+    overflow-y: scroll;
 }
 .mobile-home-innerbody-2 {
   display: none;

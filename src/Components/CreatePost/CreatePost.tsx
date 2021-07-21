@@ -31,10 +31,15 @@ const CreatePost = ({ state }: stateType) => {
         setScreenDisplay(state.screen)
     }, [state]);
     async function createPost() {
-        infoToast("Adding your post")
-        await dispatch(createNewPost({ description: body, picture: image, token }))
-        successToast("Post added successfully")
-        closeModal()
+        if (body.length > 0) {
+            infoToast("Adding your post")
+            await dispatch(createNewPost({ description: body, picture: image, token }))
+            successToast("Post added successfully")
+            closeModal()
+        }
+        else{
+            infoToast("Can't add an empty post")
+        }
     }
     function closeModal() {
         setBoxDisplay("none");
