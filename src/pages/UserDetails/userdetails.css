@@ -1,0 +1,59 @@
+.user-details-page{
+  background-color: whitesmoke;
+  padding-top: 1rem;
+  min-height: 88vh;
+}
+.profile {
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 50%;
+}
+.user-details-box {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.all-posts {
+  width: fit-content;
+}
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.followers,
+.following {
+  margin: 0 1rem;
+  cursor: pointer;
+}
+.more-details-mobile {
+  display: none;
+  margin-left: 0.8rem;
+}
+.route-icons{
+  position: relative;
+  margin-top: 5px;
+}
+.icon-utils{
+  position: absolute;
+  right: 5px;
+  width: max-content;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 4px;
+  cursor: default;
+}
+.icon-utils > p{
+  padding: 5px 10px;
+}
+.utils:hover{
+  background-color: whitesmoke;
+ }
+@media screen and (max-width: 768px) {
+  .more-details {
+    display: none;
+  }
+  .more-details-mobile {
+    display: block;
+  }
+}

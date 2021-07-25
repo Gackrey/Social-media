@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
+.navbar {
+  padding: 5px 0;
+  box-shadow: 0px 0px 8px 0px #717171;
+  background-color: white;
+  position: sticky;
+  z-index: 2;
+  background-color: #06f;
+}
+.navbody {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 5rem;
+}
+.heading {
+  font-family: "Courgette", cursive;
+  cursor: default;
+}
+.heading > span {
+  font-family: "Oleo Script", cursive;
+  color: white;
+}
+.Search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40vw;
+  height: 2.1rem;
+  border-radius: 3px;
+  background-color: var(--alternate-background-colour);
+  color: var(--text-color);
+  border: 1px solid rgba(0, 0, 0, 0.35);
+}
+.Search > input {
+  margin: 5px;
+  width: 100%;
+  height: 1.8rem;
+  border: none;
+  outline: none;
+}
+.search-icon {
+  margin-right: 10px;
+}
+.bell-box {
+  display: none;
+  padding: 8px 10px;
+  border-radius: 50%;
+  background-color: rgb(197, 197, 197);
+  margin-right: 3rem;
+}
+.bell-box:hover {
+    background-color: rgb(228, 225, 225);
+}
+.bell-icon {
+  color: gray;
+  font-size: 1.5rem;
+}
+.user-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-nav {
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 50%;
+}
+.user-details > h3 {
+  margin-left: 5px;
+}
+@media screen and (max-width: 768px) {
+  .navbody {
+    margin: 0 1rem;
+  }
+  .bell-box {
+    margin-right: 1rem;
+  }
+  .user-details > h3 {
+    display: none;
+  }
+}

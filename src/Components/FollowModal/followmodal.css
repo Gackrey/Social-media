@@ -1,0 +1,65 @@
+.modal-follow-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 5;
+  pointer-events: visible;
+}
+.inner-follow-modal {
+  width: 30vw;
+  margin: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  pointer-events: all;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(1.5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  max-height: 70vh;
+}
+.user-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.profile {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+.btn-close {
+  padding: 10px;
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 10px;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+}
+.btn-close:hover {
+  border: 2px solid white;
+  color: white;
+  background-color: blue;
+}
+.btn-unfollow {
+  background-color: #06f;
+  padding: 10px 30px;
+  font-size: 17px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-left: 1rem;
+  outline: none;
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .inner-follow-modal {
+    width: 90vw;
+  }
+}
