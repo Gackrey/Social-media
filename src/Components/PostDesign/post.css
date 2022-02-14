@@ -35,6 +35,7 @@
   margin-left: 10px;
   max-height: 250px;
   margin-bottom: 1rem;
+  overflow-y: auto;
 }
 .body > ul {
   margin-left: 1.3rem;
