@@ -84,7 +84,7 @@ const CreatePost = ({ state }: stateType) => {
                         className={tab === 2 ? "btn-tab active-underline" : "btn-tab"}
                         onClick={() => setTabs(2)}
                     >
-                        <FontAwesomeIcon icon={faEye}
+                        <FontAwesomeIcon icon={faEye as IconProp}
                             className="tab-icon"
                         /> Preview
                     </button>
@@ -92,7 +92,7 @@ const CreatePost = ({ state }: stateType) => {
                         className={tab === 3 ? "btn-tab active-underline" : "btn-tab"}
                         onClick={() => setTabs(3)}
                     >
-                        <FontAwesomeIcon icon={faLifeRing}
+                        <FontAwesomeIcon icon={faLifeRing as IconProp}
                             className="tab-icon"
                         /> Rules
                     </button>
@@ -136,22 +136,22 @@ const CreatePost = ({ state }: stateType) => {
                 <div className="bottom-body">
                     <div className="add-ons">
                         <FontAwesomeIcon
-                            icon={faBold}
+                            icon={faBold as IconProp}
                             className="addon-icon"
                             onClick={() => setBody(curr => curr + '****')}
                         />
                         <FontAwesomeIcon
-                            icon={faItalic}
+                            icon={faItalic as IconProp}
                             className="addon-icon"
                             onClick={() => setBody(curr => curr + '**')}
                         />
                         <FontAwesomeIcon
-                            icon={faList}
+                            icon={faList as IconProp}
                             className="addon-icon"
                             onClick={() => setBody(curr => curr + '\n* ')}
                         />
                         <FontAwesomeIcon
-                            icon={faHeading}
+                            icon={faHeading as IconProp}
                             className="addon-icon"
                             onClick={() => setBody(curr => curr + '# ')}
                         />

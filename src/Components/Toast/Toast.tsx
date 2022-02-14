@@ -5,6 +5,7 @@ import {
     faInfo,
     faExclamation,
 } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const attributes = {
     position: toast.POSITION.BOTTOM_RIGHT,
@@ -18,7 +19,7 @@ const attributes = {
 export const successToast = (text: String) => {
     return toast.success(
         <>
-            <FontAwesomeIcon icon={faCheck} />
+            <FontAwesomeIcon icon={faCheck as IconProp} />
             {"  " + text}
         </>,
         attributes
@@ -28,7 +29,7 @@ export const successToast = (text: String) => {
 export const infoToast = (text: String) => {
     return toast.info(
         <>
-            <FontAwesomeIcon icon={faInfo} />
+            <FontAwesomeIcon icon={faInfo as IconProp} />
             {"  " + text}
         </>,
         attributes
@@ -38,7 +39,7 @@ export const infoToast = (text: String) => {
 export const warningToast = (text: String) => {
     return toast.error(
         <>
-            <FontAwesomeIcon icon={faExclamation} />
+            <FontAwesomeIcon icon={faExclamation as IconProp} />
             {"  " + text}
         </>,
         attributes

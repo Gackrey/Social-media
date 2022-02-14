@@ -13,6 +13,7 @@ import { deletePost, likePost, dislikePost, commentPost, deleteCommentfromPost }
 import { successToast, infoToast } from "../Toast/Toast";
 import EditPost from '../EditPost/EditPost'
 import like from "./like.png"
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 type Date = {
   date: string;
 };
@@ -123,7 +124,7 @@ export const Post = ({
             <div className="edit-delete-icons">
               {owner.userID === userID ? (
                 <FontAwesomeIcon
-                  icon={faEllipsisV}
+                  icon={faEllipsisV as IconProp}
                   className="edit-icon"
                   onClick={() => setUtilsState(true)}
                 />
@@ -164,7 +165,7 @@ export const Post = ({
         <div className="post-footer">
           <div className="post-footer-icon" onClick={likeHandler}>
             <FontAwesomeIcon
-              icon={faThumbsUp}
+              icon={faThumbsUp as IconProp}
               style={{ color: likeBtnClick ? "#00BFFF" : "black" }}
             />
             <span style={{ color: likeBtnClick ? "#00BFFF" : "black" }}>
@@ -175,11 +176,11 @@ export const Post = ({
             className="post-footer-icon"
             onClick={() => setCommentBtnState(!commentBtnClick)}
           >
-            <FontAwesomeIcon icon={faComment} />
+            <FontAwesomeIcon icon={faComment as IconProp} />
             <span>Comment</span>
           </div>
           <div className="post-footer-icon">
-            <FontAwesomeIcon icon={faShare} />
+            <FontAwesomeIcon icon={faShare as IconProp} />
             <span>Share</span>
           </div>
         </div>
@@ -209,7 +210,7 @@ export const Post = ({
               </div>
               {
                 userID === comm.userID || owner.userID === userID ?
-                  <FontAwesomeIcon icon={faTrashAlt}
+                  <FontAwesomeIcon icon={faTrashAlt as IconProp}
                     className="edit-icon"
                     onClick={() => deleteCommenthandler(comm._id, comm.userID)}
                   />

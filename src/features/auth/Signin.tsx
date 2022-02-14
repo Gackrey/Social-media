@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from 'react-redux'
 import { SignInUser } from './authSlice'
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 export const Signin = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -93,7 +94,7 @@ export const Signin = () => {
                 required
               />
               <FontAwesomeIcon
-                icon={passwordState ? faEye : faEyeSlash}
+                icon={passwordState ? faEye : faEyeSlash as IconProp}
                 onClick={() => setPassState(!passwordState)}
               />
             </div>
@@ -107,7 +108,7 @@ export const Signin = () => {
                 required
               />
               <FontAwesomeIcon
-                icon={confPasswordState ? faEye : faEyeSlash}
+                icon={confPasswordState ? faEye : faEyeSlash as IconProp}
                 onClick={() => setConfPassState(!confPasswordState)}
               />
             </div>

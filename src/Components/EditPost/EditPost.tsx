@@ -18,6 +18,7 @@ import { updatePost } from "../../features/Posts/postSlice";
 import { rules } from "../CreatePost/Rules";
 import { infoToast, successToast } from "../Toast/Toast";
 import { editPostState } from "./editpost.types";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const EditPost = ({
   _id,
@@ -91,19 +92,19 @@ const EditPost = ({
             className={tab === 1 ? "btn-tab active" : "btn-tab"}
             onClick={() => setTabs(1)}
           >
-            <FontAwesomeIcon icon={faPen} className="tab-icon" /> Write
+            <FontAwesomeIcon icon={faPen as IconProp} className="tab-icon" /> Write
           </button>
           <button
             className={tab === 2 ? "btn-tab active" : "btn-tab"}
             onClick={() => setTabs(2)}
           >
-            <FontAwesomeIcon icon={faEye} className="tab-icon" /> Preview
+            <FontAwesomeIcon icon={faEye as IconProp} className="tab-icon" /> Preview
           </button>
           <button
             className={tab === 3 ? "btn-tab active" : "btn-tab"}
             onClick={() => setTabs(3)}
           >
-            <FontAwesomeIcon icon={faLifeRing} className="tab-icon" /> Rules
+            <FontAwesomeIcon icon={faLifeRing as IconProp} className="tab-icon" /> Rules
           </button>
         </div>
         {tab === 1 ? (
@@ -146,22 +147,22 @@ const EditPost = ({
         <div className="bottom-body">
           <div className="add-ons">
             <FontAwesomeIcon
-              icon={faBold}
+              icon={faBold as IconProp}
               className="addon-icon"
               onClick={() => setBody((curr) => curr + "****")}
             />
             <FontAwesomeIcon
-              icon={faItalic}
+              icon={faItalic as IconProp}
               className="addon-icon"
               onClick={() => setBody((curr) => curr + "**")}
             />
             <FontAwesomeIcon
-              icon={faList}
+              icon={faList as IconProp}
               className="addon-icon"
               onClick={() => setBody((curr) => curr + "\n* ")}
             />
             <FontAwesomeIcon
-              icon={faHeading}
+              icon={faHeading as IconProp}
               className="addon-icon"
               onClick={() => setBody((curr) => curr + "# ")}
             />

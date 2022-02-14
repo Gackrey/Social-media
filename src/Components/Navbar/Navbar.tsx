@@ -6,6 +6,7 @@ import { faBell } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 export const Navbar = () => {
     const { firstname, profile_pic, id } = useAppSelector((state) => state.auth)
     const navigate = useNavigate()
@@ -23,7 +24,7 @@ export const Navbar = () => {
                 >Writters <span>Club</span></h1>
                 <div className="user-details">
                     <div className="bell-box">
-                        <FontAwesomeIcon icon={faBell} className="bell-icon" />
+                        <FontAwesomeIcon icon={faBell as IconProp} className="bell-icon" />
                     </div>
                     <Link to={`/user-details?id=${id}`}>
                         <img src={profile_pic} className="profile-nav" alt="profile pic" />

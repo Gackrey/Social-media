@@ -12,6 +12,7 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { getID, LogOut } from "../../features/auth/authSlice";
 import { FollowModal } from "../../Components/FollowModal/FollowModal"
 import { ToastContainer } from 'react-toastify';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 export const UserDetails = () => {
   const [utilsState, setUtilsState] = useState(false);
   const [saveClick, setSaveState] = useState({ screen: "none", box: "none" });
@@ -83,7 +84,7 @@ export const UserDetails = () => {
             <div className="route-icons">
               {user_det._id === userID ? (
                 <FontAwesomeIcon
-                  icon={faEllipsisV}
+                  icon={faEllipsisV as IconProp}
                   className="edit-icon"
                   onClick={() => setUtilsState(true)}
                 />
