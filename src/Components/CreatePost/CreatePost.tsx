@@ -9,6 +9,7 @@ import { useAppSelector } from "../../app/hooks"
 import { createNewPost } from '../../features/Posts/postSlice'
 import { rules } from './Rules'
 import { infoToast, successToast } from "../Toast/Toast"
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 type stateObj = {
     screen: string;
@@ -76,7 +77,7 @@ const CreatePost = ({ state }: stateType) => {
                         className={tab === 1 ? "btn-tab active-underline" : "btn-tab"}
                         onClick={() => setTabs(1)}
                     >
-                        <FontAwesomeIcon icon={faPen}
+                        <FontAwesomeIcon icon={faPen as IconProp}
                             className="tab-icon" /> Write
                     </button>
                     <button
