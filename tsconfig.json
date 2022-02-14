@@ -22,5 +22,12 @@
     },
     "include": [
         "src"
-    ]
+    ],
+    "compilerOptions": {
+        "paths": {
+            "@fortawesome/fontawesome-common-types": [
+                "./node_modules/@fortawesome/fontawesome-common-types/index"
+            ]
+        }
+    }
 }
