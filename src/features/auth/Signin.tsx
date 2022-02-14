@@ -94,7 +94,7 @@ export const Signin = () => {
                 required
               />
               <FontAwesomeIcon
-                icon={passwordState ? faEye : faEyeSlash as IconProp}
+                icon={passwordState ? faEye as IconProp : faEyeSlash as IconProp}
                 onClick={() => setPassState(!passwordState)}
               />
             </div>
@@ -108,7 +108,7 @@ export const Signin = () => {
                 required
               />
               <FontAwesomeIcon
-                icon={confPasswordState ? faEye : faEyeSlash as IconProp}
+                icon={confPasswordState ? faEye as IconProp : faEyeSlash as IconProp}
                 onClick={() => setConfPassState(!confPasswordState)}
               />
             </div>

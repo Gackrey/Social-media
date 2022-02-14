@@ -56,7 +56,7 @@ export const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <FontAwesomeIcon
-              icon={passwordState ? faEye : faEyeSlash as IconProp}
+              icon={passwordState ? faEye as IconProp : faEyeSlash as IconProp}
               onClick={() => setPassState(!passwordState)}
             />
           </div>
