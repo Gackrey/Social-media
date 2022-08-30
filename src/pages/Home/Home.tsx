@@ -35,7 +35,7 @@ export const Home = () => {
     } else {
       navigate("/login");
     }
-  }, [dispatch, userID]);
+  }, [navigate,dispatch, userID]);
 
   useEffect(() => {
     (async function () {
