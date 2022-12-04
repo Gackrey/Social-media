@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { API_URL } from "../../Constants";
 import {
   stateType,
   signinData,
@@ -35,7 +36,7 @@ export const SignInUser = createAsyncThunk(
   "/signin",
   async ({ firstName, lastName, email, phone, password }: SignInType) => {
     const response = await axios.post<signinData>(
-      "https://author-book-server.herokuapp.com/account/signup",
+      `${API_URL}/account/signup`,
       { firstname: firstName, lastname: lastName, email, phone, password }
     );
     return response.data;
@@ -45,7 +46,7 @@ export const getUserData = createAsyncThunk(
   "/get-data",
   async ({ _id }: getUserType) => {
     const response = await axios.post<stateType>(
-      "https://author-book-server.herokuapp.com/user/get-user-details",
+      `${API_URL}/user/get-user-details`,
       { _id: _id }
     );
     return response.data;
@@ -55,7 +56,7 @@ export const LoginUser = createAsyncThunk(
   "/login",
   async ({ email, password }: LoginType) => {
     const response = await axios.post<loginData>(
-      "https://author-book-server.herokuapp.com/account/login",
+      `${API_URL}/account/login`,
       { email, password }
     );
     return response.data;
@@ -73,7 +74,7 @@ export const AddUserDetails = createAsyncThunk(
       auth = id;
     }
     const response = await axios.post<ReceivedUserType>(
-      "https://author-book-server.herokuapp.com/user/add-user-details",
+      `${API_URL}/user/add-user-details`,
       { bio, url: URL, profile_pic: image, followers: [], following: [] },
       { headers: { authorization: auth } }
     );
@@ -84,7 +85,7 @@ export const updateUser = createAsyncThunk(
   "/update-user",
   async ({ bio, image, URL, token }: updateUserType) => {
     const response = await axios.post<ReceivedUserType>(
-      "https://author-book-server.herokuapp.com/user/updateUser",
+      `${API_URL}/user/updateUser`,
       { bio, profile_pic: image, url: URL },
       { headers: { authorization: token } }
     );
@@ -95,7 +96,7 @@ export const updateAccountWithoutPassword = createAsyncThunk(
   "/update-account-without-password",
   async ({ firstname, lastname, email, phone, token }: updateAccountWithoutPasswordType) => {
     const response = await axios.post<signinData>(
-      "https://author-book-server.herokuapp.com/account/update",
+      `${API_URL}/account/update`,
       { firstname, lastname, email, phone },
       { headers: { authorization: token } }
     );
@@ -106,7 +107,7 @@ export const updateAccountWithPassword = createAsyncThunk(
   "/update-account-without-password",
   async ({ firstname, lastname, email, phone, oldpassword, newpassword, token }: updateAccountWithPasswordType) => {
     const response = await axios.post<signinData>(
-      "https://author-book-server.herokuapp.com/account/update",
+      `${API_URL}/account/update`,
       { firstname, lastname, email, phone, oldpassword, newpassword },
       { headers: { authorization: token } }
     );
@@ -118,7 +119,7 @@ export const followUser = createAsyncThunk(
   "/follow-user",
   async ({ _id, firstname, lastname, profile_pic, token }: reqFollowType) => {
     const response = await axios.post<respFollowtype>(
-      "https://author-book-server.herokuapp.com/user/following",
+      `${API_URL}/user/following`,
       { _id, firstname, lastname, profile_pic },
       { headers: { authorization: token } }
     );
@@ -130,7 +131,7 @@ export const unFollowUser = createAsyncThunk(
   "/follow-user",
   async ({ _id, token }: reqUnFollowType) => {
     const response = await axios.delete<respFollowtype>(
-      "https://author-book-server.herokuapp.com/user/following",
+      `${API_URL}/user/following`,
       {
         headers: { authorization: token },
         data: { _id}

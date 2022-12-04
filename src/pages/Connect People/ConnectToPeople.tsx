@@ -7,6 +7,8 @@ import { users, resUser } from "./connect.types"
 import { useAppSelector } from "../../app/hooks";
 import { successToast, infoToast } from "../../Components/Toast/Toast";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../Constants";
+
 export const ConnectToPeople = () => {
     const userID = useSelector(getID);
     const followingList = useSelector(getUserFollowingList);
@@ -18,7 +20,7 @@ export const ConnectToPeople = () => {
     useEffect(() => {
         (async function () {
             const response = await axios.get<resUser>(
-                "https://author-book-server.herokuapp.com/user/show-all-users",
+                `${API_URL}/user/show-all-users`,
             )
             setUserList(response.data.results);
         })()

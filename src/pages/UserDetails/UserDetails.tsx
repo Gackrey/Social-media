@@ -13,6 +13,8 @@ import { getID, LogOut } from "../../features/auth/authSlice";
 import { FollowModal } from "../../Components/FollowModal/FollowModal"
 import { ToastContainer } from 'react-toastify';
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { API_URL } from "../../Constants";
+
 export const UserDetails = () => {
   const [utilsState, setUtilsState] = useState(false);
   const [saveClick, setSaveState] = useState({ screen: "none", box: "none" });
@@ -27,7 +29,7 @@ export const UserDetails = () => {
     (async function () {
       if (id) {
         const response = await axios.post<userDet>(
-          "https://author-book-server.herokuapp.com/user/get-user-details",
+          `${API_URL}/user/get-user-details`,
           { _id: id }
         );
         setUserDetails(response.data);

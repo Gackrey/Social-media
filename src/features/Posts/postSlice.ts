@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_URL } from "../../Constants";
 import {
     stateType,
     createPost,
@@ -16,6 +17,7 @@ import {
     updatePostType,
     updatePostResponse
 } from "./post.types";
+
 const initialState: stateType = {
     userPosts: [],
     allPosts: [],
@@ -26,7 +28,7 @@ export const createNewPost = createAsyncThunk(
     "/create-post",
     async ({ description, picture, token }: createPost) => {
         const response = await axios.post<postResponse>(
-            "https://author-book-server.herokuapp.com/post/create-or-delete",
+            `${API_URL}/post/create-or-delete`,
             { description, picture, liked_by: [], comments: [] },
             { headers: { authorization: token } }
         );
@@ -38,7 +40,7 @@ export const deletePost = createAsyncThunk(
     "/delete-post",
     async ({ _id, owner, token }: deletePostType) => {
         const response = await axios.delete<deletePostResponse>(
-            "https://author-book-server.herokuapp.com/post/create-or-delete",
+            `${API_URL}/post/create-or-delete`,
             {
                 headers: { authorization: token },
                 data: { _id, owner }
@@ -50,7 +52,7 @@ export const deletePost = createAsyncThunk(
 
 export const getAllPost = createAsyncThunk("/get-posts", async () => {
     const response = await axios.get<getResponse>(
-        "https://author-book-server.herokuapp.com/post/show-all"
+        `${API_URL}/post/show-all`
     );
     return response.data;
 });
@@ -59,7 +61,7 @@ export const likePost = createAsyncThunk(
     "/like-post",
     async ({ _id, liked_by, token }: likePostType) => {
         const response = await axios.post<respLikeType>(
-            "https://author-book-server.herokuapp.com/post/liked",
+            `${API_URL}/post/liked`,
             { _id, liked_by },
             { headers: { authorization: token } }
         );
@@ -70,7 +72,7 @@ export const dislikePost = createAsyncThunk(
     "/dislike-post",
     async ({ _id, liked_by, token }: likePostType) => {
         const response = await axios.delete<respLikeType>(
-            "https://author-book-server.herokuapp.com/post/liked",
+            `${API_URL}/post/liked`,
             {
                 headers: { authorization: token },
                 data: { _id, liked_by }
@@ -83,7 +85,7 @@ export const commentPost = createAsyncThunk(
     "/comment-post",
     async ({ _id, comment, comments, token }: commentPostType) => {
         const response = await axios.post<respCommentType>(
-            "https://author-book-server.herokuapp.com/post/comment",
+            `${API_URL}/post/comment`,
             { _id, comment, comments },
             { headers: { authorization: token } }
         );
@@ -94,7 +96,7 @@ export const deleteCommentfromPost = createAsyncThunk(
     "/uncomment-post",
     async ({ post_id, comment_id, owner, comments, token }: delcommentPostType) => {
         const response = await axios.delete<respCommentType>(
-            "https://author-book-server.herokuapp.com/post/comment",
+            `${API_URL}/post/comment`,
             {
                 headers: { authorization: token },
                 data: { post_id, comment_id, owner, comments }
@@ -107,7 +109,7 @@ export const updatePost = createAsyncThunk(
     "/update-post",
     async ({ _id, description, picture, owner,liked_by, comments,createdAt, token }: updatePostType) => {
         const response = await axios.post<updatePostResponse>(
-            "https://author-book-server.herokuapp.com/post/update",
+            `${API_URL}/post/update`,
             { _id, description, picture, owner,liked_by,createdAt, comments },
             { headers: { authorization: token } }
         );

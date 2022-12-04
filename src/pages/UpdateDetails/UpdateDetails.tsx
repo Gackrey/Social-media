@@ -9,6 +9,7 @@ import { useAppSelector } from "../../app/hooks";
 import { successToast, infoToast } from "../../Components/Toast/Toast";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from "../../Constants";
 export const UpdateDetails = () => {
     const rectab = new URLSearchParams(useLocation().search).get("tab");
     let intTab;
@@ -39,7 +40,7 @@ export const UpdateDetails = () => {
     useEffect(() => {
         (async function () {
             const response = await axios.post<userDet>(
-                "https://author-book-server.herokuapp.com/user/get-user-details",
+                `${API_URL}/user/get-user-details`,
                 { _id: userID }
             )
             setUserDetails(response.data);
