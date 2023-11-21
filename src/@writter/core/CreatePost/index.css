@@ -1,0 +1,150 @@
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 5;
+  pointer-events: visible;
+}
+.inner-modal {
+  width: 40vw;
+  margin: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  pointer-events: all;
+}
+.modal-heading-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-heading {
+  margin: 5px;
+  text-align: start;
+  display: inline;
+}
+.close {
+  background-color: #f0eaea;
+  font-size: 19px;
+  font-family: cursive;
+  border: none;
+  outline: none;
+  margin: 5px;
+  padding: 2px 8px;
+  border-radius: 50%;
+  color: gray;
+}
+.close:hover {
+  background-color: #c7c2c2;
+}
+.post-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 10px;
+  margin-top: 0.5rem;
+}
+.btn-tab {
+  font-size: 17px;
+  background-color: white;
+  border: 1px solid black;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+.btn-tab:nth-child(2) {
+  border-left: none;
+  border-right: none;
+}
+.active-underline {
+  border-bottom: none;
+}
+.tab-icon {
+  color: #0e63c5;
+}
+.post-body {
+  height: 140px;
+  margin-left: 10px;
+  width: 91%;
+  resize: none;
+  display: block;
+  border: none;
+  outline: none;
+}
+.markdown-body {
+  margin-left: 10px;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+.markdown-body > ul,
+.rules-body > ul {
+  margin-left: 1.3rem;
+}
+.rules-body {
+  margin-left: 10px;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+.bottom-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.add-ons {
+  padding: 10px;
+  margin: 5px;
+  display: inline-block;
+}
+.addon-icon {
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+.addon-icon:hover {
+  background-color: rgb(228, 225, 225);
+}
+.btn-div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.btn-post {
+  color: #0e63c5;
+  border: none;
+  outline: none;
+  padding: 7px;
+  background-color: white;
+  border-radius: 9px;
+  font-weight: bold;
+  font-size: 16px;
+}
+.btn-post:hover {
+  background-color: #47717945;
+}
+input[type="file"] {
+  color: rgba(0, 0, 0, 0);
+}
+.custom-image-input {
+  width: 26px;
+  margin-left: 10px;
+}
+.custom-image-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-image-input::before {
+  content: url("../../../img/img-logo.svg");
+}
+.post-ki-chavi{
+  width: 400px;
+  height: 300px;
+  margin: auto;
+  display: block;
+}
+@media screen and (max-width: 768px) {
+  .inner-modal {
+    width: 90vw;
+  }
+}

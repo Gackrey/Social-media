@@ -1,4 +1,3 @@
-export { Home } from './Home/Home'
-export { UserDetails } from './UserDetails/UserDetails'
-export { PrivateRoute } from './PrivateRoute'
-export { UpdateDetails } from './UpdateDetails/UpdateDetails'
+export { Home } from './Home'
+export { UserDetails } from './UserDetails'
+export { UpdateDetails } from './UpdateDetails'

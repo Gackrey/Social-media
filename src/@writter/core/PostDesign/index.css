@@ -1,0 +1,131 @@
+.post {
+  width: 40vw;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+}
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.post-header > h3 {
+  margin-left: 10px;
+}
+.profile {
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 50%;
+}
+.owner-details {
+  margin-left: 1rem;
+}
+.post-editer {
+  display: flex;
+  justify-content: space-between;
+  width: -webkit-fill-available;
+}
+.edit-icon {
+  margin: 0 3px;
+  cursor: pointer;
+}
+.body {
+  margin-left: 10px;
+  max-height: 250px;
+  margin-bottom: 1rem;
+  overflow-y: auto;
+}
+.body > ul {
+  margin-left: 1.3rem;
+}
+.post-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 10px 0 0 0;
+}
+.post-footer-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.post-footer-icon > span {
+  margin-left: 10px;
+}
+.comment-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.comment-input {
+  width: -webkit-fill-available;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid black;
+  outline: none;
+}
+.btn-comment {
+  color: #0e63c5;
+  border: none;
+  outline: none;
+  padding: 7px;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+.post-reach,
+.post-reach > p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.liked{
+  color: #00BFFF;
+}
+
+.likepng {
+  margin: 0 0 5px 5px;
+}
+.show-comment-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+.profile-com {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  margin-top: 4px;
+}
+.comment-body {
+  background-color: #e6e6e6;
+  border-radius: 7px;
+  padding: 5px 10px;
+  width: -webkit-fill-available;
+}
+.edit-delete-icons{
+  position: relative;
+}
+
+.picture{
+  width: 400px;
+  margin: auto;
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .post {
+    width: 80vw;
+  }
+  .body > h1{
+    font-size: 1.2rem;
+  }
+  .picture{
+    width: 300px;
+  }
+}

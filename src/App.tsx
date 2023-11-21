@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Login, Signin, AddDetails } from "./features/auth/index";
-import { Home, UserDetails, UpdateDetails } from './pages/index'
+import { Login, Signin, AddDetails } from "./pages/Auth";
+import { Home, UserDetails, UpdateDetails } from "./pages";
+
 function App() {
   return (
     <div className="App">
