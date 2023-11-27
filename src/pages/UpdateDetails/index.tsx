@@ -300,7 +300,7 @@ export const UpdateDetails = () => {
         >
           Enter a valid URL
         </p>
-        <button type="submit" className="submit">
+        <button type="submit" className="submit pointer">
           Update
         </button>
       </form>

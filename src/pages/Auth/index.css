@@ -30,6 +30,7 @@
 .img-box {
   position: relative;
   height: 100%;
+  min-height: 532px;
 }
 .image {
   width: 350px;
@@ -60,6 +61,12 @@
   width: 30vw;
   padding: 10px;
 }
+
+.flex input,
+.flex >.password{
+  width: 100%;
+}
+
 .heading-st > span {
   color: #06f;
 }
@@ -68,11 +75,11 @@
 }
 .input {
   background-color: white;
-  padding: 10px 16px;
+  padding: 10px;
   font-size: 15px;
   margin: 5px;
   border-radius: 10px;
-  border: 2px solid black;
+  border: 1px solid black;
   outline: none;
 }
 .input-log {
@@ -87,12 +94,14 @@
 }
 .password {
   background-color: white;
-  padding: 10px 7px;
+  padding: 10px;
   font-size: 15px;
   margin: 5px;
   border-radius: 10px;
-  border: 2px solid black;
+  border: 1px solid black;
   outline: none;
+  display: flex;
+  justify-content: space-between;
 }
 .password-log {
   padding: 10px 16px;
@@ -106,15 +115,13 @@
   width: 92%;
 }
 .other-details {
-  margin: 0;
   text-align: start;
-  margin: 5px 0 0 1rem;
+  margin: 15px 0 0 1rem;
   font-size: 17px;
-  font-weight: bold;
   color: white;
 }
 .other-details-log {
-  margin: 5px 1rem 0 1rem;
+  margin: 15px 1rem 0 1rem;
 }
 .submit {
   background-color: #06f;
@@ -126,7 +133,6 @@
   outline: none;
   margin: 1rem 0 0 0.5rem;
   font-weight: bold;
-  cursor: default;
 }
 .guest-login {
   background-color: white;
@@ -177,20 +183,15 @@ input[type="file"] {
 .custom-file-input::before {
   content: "Upload Profile pic";
   display: inline-block;
-  background: linear-gradient(315deg, #20bf55 0%, #01baef 74%);
-  background-color: #20bf55;
-  border: 1px solid #999;
-  border-radius: 3px;
-  padding: 5px 8px;
+  background-color: #06f;
+  border-radius: 8px;
+  padding: 10px;
   outline: none;
   white-space: nowrap;
   cursor: pointer;
   text-shadow: 1px 1px #fff;
   font-weight: 700;
   font-size: 10pt;
-}
-.custom-file-input:hover::before {
-  border-color: black;
 }
 .profile-pic {
   display: flex;
@@ -221,8 +222,10 @@ input[type="file"] {
   }
   .signup-form{
     width: 97vw;
+    padding: 0;
   }
-  .input {
+  .flex .input,
+  .flex > .password {
     width: -webkit-fill-available;
   }
   .other-details {

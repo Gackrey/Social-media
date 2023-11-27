@@ -11,9 +11,14 @@ export type commentState = {
   userID: string;
 };
 
+export type postSearchState = {
+  _id: string;
+};
+
 export type postState = {
   _id: string;
   description: string;
+  postType?: string;
   picture: string;
   owner: likeState;
   liked_by: Array<likeState>;
@@ -47,6 +52,10 @@ export type updatePostType = {
 export type getResponse = {
   success: boolean;
   sortedPosts: postState[];
+};
+export type getSinglePostResponse = {
+  success: boolean;
+  post: postState;
 };
 export type postResponse = {
   success: boolean;

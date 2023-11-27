@@ -1,0 +1,25 @@
+.share-wrapper {
+  position: relative;
+}
+
+.share-option-wrapper {
+  position: absolute;
+  top:-59px;
+  left:0;
+  display: flex;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 8px;
+  padding: 8px 8px 0 8px;
+  z-index: 4;
+}
+
+.post-share-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.post-share-icon > span {
+  margin-left: 10px;
+}

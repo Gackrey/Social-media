@@ -1,13 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MoreOptionType } from "@writter/redux/models";
 import "./index.css";
 
-type MoreOptionsProps = { options: MoreOptionType[] };
+type MoreOptionsProps = {
+  customStyle?: CSSProperties;
+  options: MoreOptionType[];
+};
 
-const MoreOptions = ({ options }: MoreOptionsProps) => {
+const MoreOptions = ({ customStyle, options }: MoreOptionsProps) => {
   const [utilsState, setUtilsState] = useState(false);
   const clickRef = useRef<HTMLDivElement | null>(null);
 
@@ -31,10 +34,14 @@ const MoreOptions = ({ options }: MoreOptionsProps) => {
   };
 
   return (
-    <div className="edit-delete-icons" ref={clickRef}>
+    <div
+      className="more-options-wrapper"
+      style={customStyle ?? {}}
+      ref={clickRef}
+    >
       <FontAwesomeIcon
+        className="pointer"
         icon={faEllipsisV as IconProp}
-        className="edit-icon"
         onClick={() => setUtilsState((prev) => !prev)}
       />
       <div
@@ -44,7 +51,7 @@ const MoreOptions = ({ options }: MoreOptionsProps) => {
         style={{ display: utilsState ? "block" : "none" }}
       >
         {options.map((option, index) => (
-          <>
+          <React.Fragment key={`option-${index}`}>
             <p
               className={option?.isDanger ? "danger" : ""}
               key={option.title}
@@ -53,7 +60,7 @@ const MoreOptions = ({ options }: MoreOptionsProps) => {
               {option.title}
             </p>
             {index + 1 !== options.length ? <hr /> : null}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>

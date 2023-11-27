@@ -1,3 +1,7 @@
+.more-options-wrapper {
+  position: relative;
+}
+
 .icon-utils {
   position: absolute;
   right: 5px;
@@ -14,7 +18,7 @@
 }
 
 .danger {
-  color:red
+  color:#ee1111;
 }
 
 .icon-utils > p:first-child {

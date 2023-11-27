@@ -1,6 +1,5 @@
 import "./index.css";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useMemo, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getID,
@@ -9,11 +8,11 @@ import {
   getUserFollowerList,
   followUser,
 } from "@writter/redux/actions";
-import { users, resUser } from "@writter/redux/models";
 import { useAppSelector } from "@writter/redux/hooks";
 import { successToast, infoToast } from "@writter/core";
 import { Link } from "react-router-dom";
-import { API_URL } from "@writter/constants";
+import { getUserLoadStatus, getUsersList } from "@writter/redux/actions/people";
+import { FriendDesktopSkeleton, FriendMobileSkeleton } from "../Skeleton";
 
 export const ConnectToPeople = () => {
   const userID = useSelector(getID);
@@ -21,24 +20,21 @@ export const ConnectToPeople = () => {
   const followerList = useSelector(getUserFollowerList);
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const user_status = useSelector(getStatus);
-  const [user_list, setUserList] = useState<users[]>();
-  useEffect(() => {
-    (async function () {
-      const response = await axios.get<resUser>(
-        `${API_URL}/user/show-all-users`
-      );
-      setUserList(response.data.results);
-    })();
-  }, []);
+  const userStatus = useSelector(getStatus);
+  const userList = useSelector(getUsersList);
+  const loadingState = useSelector(getUserLoadStatus);
 
-  function isAlreadyFollowed(user_id: string): boolean {
-    const ispresent = followingList.filter(
-      (followed) => followed.userID === user_id
-    );
-    if (ispresent.length > 0) return false;
-    else return true;
-  }
+  const isAlreadyFollowed = useCallback(
+    (user_id: string): boolean => {
+      const ispresent = followingList.filter(
+        (followed) => followed.userID === user_id
+      );
+      if (ispresent.length > 0) return false;
+      else return true;
+    },
+    [followingList]
+  );
+
   function hasFollowedUser(user_id: string): boolean {
     const ispresent = followerList.filter(
       (followed) => followed.userID === user_id
@@ -58,21 +54,35 @@ export const ConnectToPeople = () => {
     );
     successToast(`Added ${firstname} ${lastname} to your network`);
   }
-  return user_status === "done" ? (
+
+  const getUsersToShow = useMemo(() => {
+    if (userList && userList?.length) {
+      const filteredUserList = userList?.filter(
+        (user) => user._id !== userID && isAlreadyFollowed(user._id)
+      );
+      return filteredUserList;
+    } else return [];
+  }, [userList, userID, isAlreadyFollowed]);
+
+  return (
     <div>
       <h2 className="heading-ctp">People you may know</h2>
-      <div className="people-list">
-        {user_list?.map((user) => {
-          if (user._id !== userID && isAlreadyFollowed(user._id))
-            return (
-              <div className="user-box">
-                <Link to={`/user-details?id=${user._id}`}>
-                  <img
-                    src={user.profile_pic}
-                    className="user-profile"
-                    alt="profile"
-                  />
-                </Link>
+      {userStatus === "done" && loadingState === "done" ? (
+        <div
+          className={`people-list ${
+            getUsersToShow.length > 3 ? "people-list-morethan-3" : ""
+          }`}
+        >
+          {getUsersToShow?.map((user) => (
+            <div className="user-box" key={`user-${user._id}`}>
+              <Link to={`/user-details?id=${user._id}`}>
+                <img
+                  src={user.profile_pic}
+                  className="user-profile-img"
+                  alt="profile"
+                />
+              </Link>
+              <div className="user-content-box">
                 <div className="all-user-details">
                   <h4>
                     {user.firstname} {user.lastname}
@@ -93,12 +103,18 @@ export const ConnectToPeople = () => {
                   {hasFollowedUser(user._id) ? "Follow back" : "Follow"}
                 </button>
               </div>
-            );
-          else return "";
-        })}
-      </div>
+            </div>
+          ))}
+        </div>
+      ) : window.innerWidth > 768 ? (
+        <>
+          <FriendDesktopSkeleton /> <FriendDesktopSkeleton />
+        </>
+      ) : (
+        <>
+          <FriendMobileSkeleton /> <FriendMobileSkeleton />
+        </>
+      )}
     </div>
-  ) : (
-    <p></p>
   );
 };

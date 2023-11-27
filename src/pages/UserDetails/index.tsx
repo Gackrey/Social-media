@@ -3,14 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { userDet } from "@writter/redux/models";
-import { Navbar, UserPost, FollowModal } from "@writter/core";
-import Loader from "react-loader-spinner";
+import { Navbar, Post, FollowModal } from "@writter/core";
 import { useSelector, useDispatch } from "react-redux";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { getID, LogOut } from "@writter/redux/actions";
 import { ToastContainer } from "react-toastify";
 import { API_URL } from "@writter/constants";
 import MoreOptions from "@writter/core/MoreOptions";
+import { UserPageSkeleton } from "@writter/core/Skeleton";
 
 export const UserDetails = () => {
   const [saveClick, setSaveState] = useState({ screen: "none", box: "none" });
@@ -107,6 +106,7 @@ export const UserDetails = () => {
                     },
                     {
                       title: "Log Out",
+                      isDanger: true,
                       callback: onLogOut,
                     },
                   ]}
@@ -154,8 +154,9 @@ export const UserDetails = () => {
                   comments,
                   createdAt,
                 }) => (
-                  <UserPost
+                  <Post
                     _id={_id}
+                    postType="user"
                     description={description}
                     picture={picture}
                     owner={owner}
@@ -171,8 +172,8 @@ export const UserDetails = () => {
           </div>
         </div>
       ) : (
-        <div className="spinner">
-          <Loader type="Oval" color="#00BFFF" height={50} width={50} />
+        <div>
+          <UserPageSkeleton />
         </div>
       )}
     </div>

@@ -34,7 +34,7 @@ export const Login = () => {
         <div className="img-box">
           <img src="/img/front.jpg" className="image" alt="img" />
           <div className="text-overlay">
-            <h1 className="heading-st">
+            <h1 className="heading-st mb-0">
               Writter <span>Club</span>
             </h1>
             <p>A place where writters connect</p>

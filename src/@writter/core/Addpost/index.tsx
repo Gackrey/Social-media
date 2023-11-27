@@ -18,7 +18,7 @@ export const AddPost = () => {
             <img src={profile_pic} className="profile" alt="profile pic" />
           </Link>
           <div
-            className="click-to-open-modal"
+            className="click-to-open-modal pointer"
             onClick={() => setSaveState({ screen: "flex", box: "block" })}
           >
             Start putting thoughts into words

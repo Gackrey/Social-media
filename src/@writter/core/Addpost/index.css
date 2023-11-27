@@ -6,21 +6,26 @@
 }
 .create-post-div {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
+
+.create-post-div > a{
+  margin-right: 10px;
+}
+
 .profile {
   width: 3.3rem;
   height: 3.3rem;
   border-radius: 50%;
 }
 .click-to-open-modal {
+  width: 64%;
   border-radius: 20px;
   background-color: #e6e6e6;
   padding: 0.5rem 12rem 0.5rem 1rem;
   text-align: start;
   color: #544f4f;
-  cursor: default;
 }
 .add-otherItems-div {
   display: none;
@@ -48,6 +53,7 @@
     width: 90%;
   }
   .click-to-open-modal {
+    width: 85%;
     padding: 0.5rem 1rem 0.5rem 1rem;
   }
   .icon-box{

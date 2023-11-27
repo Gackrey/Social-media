@@ -26,10 +26,7 @@
   justify-content: space-between;
   width: -webkit-fill-available;
 }
-.edit-icon {
-  margin: 0 3px;
-  cursor: pointer;
-}
+
 .body {
   margin-left: 10px;
   max-height: 250px;
@@ -43,7 +40,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin: 10px 0 0 0;
+  margin: 10px 0 0;
 }
 .post-footer-icon {
   display: flex;
@@ -54,33 +51,12 @@
 .post-footer-icon > span {
   margin-left: 10px;
 }
-.comment-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.comment-input {
-  width: -webkit-fill-available;
-  padding: 5px;
-  border-radius: 10px;
-  border: 1px solid black;
-  outline: none;
-}
-.btn-comment {
-  color: #0e63c5;
-  border: none;
-  outline: none;
-  padding: 7px;
-  background-color: transparent;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-}
+
 .post-reach,
 .post-reach > p {
+  margin-top: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .liked{
@@ -90,24 +66,7 @@
 .likepng {
   margin: 0 0 5px 5px;
 }
-.show-comment-box {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-top: 10px;
-}
-.profile-com {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  margin-top: 4px;
-}
-.comment-body {
-  background-color: #e6e6e6;
-  border-radius: 7px;
-  padding: 5px 10px;
-  width: -webkit-fill-available;
-}
+
 .edit-delete-icons{
   position: relative;
 }

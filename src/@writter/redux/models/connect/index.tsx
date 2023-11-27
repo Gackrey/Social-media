@@ -10,7 +10,3 @@ export type users = {
     following: [],
     followers: []
 }
-export type resUser = {
-    success: boolean,
-    results: users[]
-}

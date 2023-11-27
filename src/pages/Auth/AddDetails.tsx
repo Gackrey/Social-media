@@ -41,7 +41,7 @@ export const AddDetails = () => {
         <div className="img-box">
           <img src="/img/front.jpg" className="image" alt="img" />
           <div className="text-overlay">
-            <h1 className="heading-st">
+            <h1 className="heading-st mb-0">
               Writter <span>Club</span>
             </h1>
             <p>A place where writters connect</p>
@@ -88,7 +88,7 @@ export const AddDetails = () => {
           >
             Enter a valid URL
           </p>
-          <button type="submit" className="submit">
+          <button type="submit" className="submit pointer">
             Create Account
           </button>
         </form>

@@ -5,11 +5,18 @@
   padding: 10px;
   border-radius: 10px;
   background-color: #e6e6e6;
-  margin: 1rem;
+  margin: 1rem 0;
 }
-.user-profile {
-  width: 3rem;
-  height: 3rem;
+.user-content-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 50px);
+}
+
+.user-profile-img {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 .all-user-details {
@@ -23,20 +30,30 @@
   border: none;
   border-radius: 10px;
   outline: none;
-  margin: 1rem 0 0 0.5rem;
+  margin-left: 0.5rem;
   font-weight: bold;
 }
 @media screen and (max-width: 768px) {
   .people-list {
     display: flex;
+    justify-content: center;
     align-items: center;
     overflow-x: scroll;
     width: 100vw;
-}
+  }
+
+  .people-list-morethan-3 {
+    justify-content: flex-start !important;
+  }
   .heading-ctp {
     text-align: center;
   }
-  .user-box {
+  .user-box,
+  .user-content-box {
     flex-direction: column;
+  }
+
+  .user-content-box{
+    width: 100%;
   }
 }

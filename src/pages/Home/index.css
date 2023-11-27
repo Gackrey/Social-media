@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   background-color: whitesmoke;
+  min-height: calc(100vh - 69.8px);
 }
 .spinner {
   position: absolute;

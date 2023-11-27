@@ -23,7 +23,7 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
   max-height: 70vh;
 }
-.user-box {
+.user-box-modal {
   display: flex;
   justify-content: flex-start;
   align-items: center;

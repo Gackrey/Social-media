@@ -1,7 +1,6 @@
 import "./index.css";
 import ReactMarkdown from "react-markdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp, faComment } from "@fortawesome/free-regular-svg-icons";
 import { postState } from "@writter/redux/models";
 import { useEffect, useState } from "react";
@@ -9,22 +8,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "@writter/redux/hooks";
 import { getID, getUserFollowingList } from "@writter/redux/actions";
-import {
-  deletePost,
-  likePost,
-  dislikePost,
-  commentPost,
-  deleteCommentfromPost,
-} from "@writter/redux/actions";
+import { deletePost, likePost, dislikePost } from "@writter/redux/actions";
 import { successToast, infoToast } from "../Toast";
 import EditPost from "../EditPost";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { DateCalculator } from "@writter/utils";
 import MoreOptions from "../MoreOptions";
+import Comments from "../Comments";
+import ShareOption from "../Share";
 
 export const Post = ({
   _id,
   description,
+  postType = "post",
   picture,
   owner,
   createdAt,
@@ -33,7 +29,6 @@ export const Post = ({
 }: postState) => {
   const [likeBtnClick, setLikeBtnState] = useState(false);
   const [commentBtnClick, setCommentBtnState] = useState(false);
-  const [comment, setComment] = useState("");
   const [saveClick, setSaveState] = useState({ screen: "none", box: "none" });
   const userID = useSelector(getID);
   const { token } = useAppSelector((state) => state.auth);
@@ -65,30 +60,6 @@ export const Post = ({
       setLikeBtnState(true);
     }
   }
-  async function commentHandler() {
-    if (comment.length > 0) {
-      infoToast("Adding your comment");
-      await dispatch(commentPost({ _id, comment, comments, token }));
-      setComment("");
-      successToast("Comment added successfully");
-    } else {
-      infoToast("Can't add an empty comment");
-    }
-  }
-
-  async function deleteCommenthandler(comment_id: string, owner: string) {
-    infoToast("Deleting your comment");
-    await dispatch(
-      deleteCommentfromPost({
-        post_id: _id,
-        comment_id,
-        owner,
-        comments,
-        token,
-      })
-    );
-    successToast("Comment deleted successfully");
-  }
 
   function isFollowed(user_id: string): boolean {
     const ispresent = followingList.find(
@@ -114,7 +85,10 @@ export const Post = ({
       <div
         key={_id}
         className="post"
-        style={{ display: isFollowed(owner.userID) ? "block" : "none" }}
+        style={{
+          display:
+            postType === "user" || isFollowed(owner.userID) ? "block" : "none",
+        }}
       >
         <div className="post-header">
           <Link to={`/user-details?id=${owner.userID}`}>
@@ -147,15 +121,22 @@ export const Post = ({
         ) : (
           ""
         )}
-        <div className="post-reach">
-          <p className="liked">
-            {liked_by.length}
-            <FontAwesomeIcon
-              className="likepng"
-              icon={faThumbsUp as IconProp}
-            />
-          </p>
-          <p>{comments.length} comments</p>
+        <div
+          style={{
+            justifyContent: liked_by.length ? "space-between" : "flex-end",
+          }}
+          className="post-reach"
+        >
+          {liked_by.length ? (
+            <p className="liked">
+              {liked_by.length}
+              <FontAwesomeIcon
+                className="likepng"
+                icon={faThumbsUp as IconProp}
+              />
+            </p>
+          ) : null}
+          {comments.length ? <p>{comments.length} comments</p> : null}
         </div>
 
         <hr />
@@ -176,52 +157,17 @@ export const Post = ({
             <FontAwesomeIcon icon={faComment as IconProp} />
             <span>Comment</span>
           </div>
-          <div className="post-footer-icon">
-            <FontAwesomeIcon icon={faShare as IconProp} />
-            <span>Share</span>
-          </div>
+          <ShareOption postId={_id} />
         </div>
-        <div
-          className="comment-box"
-          style={{ display: commentBtnClick ? "flex" : "none" }}
-        >
-          <input
-            type="text"
-            className="comment-input"
-            placeholder="Comment your thoughts"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <button className="btn-comment" onClick={commentHandler}>
-            Post
-          </button>
-        </div>
-        <div style={{ display: commentBtnClick ? "block" : "none" }}>
-          {comments.map((comm) => {
-            return (
-              <div key={comm._id} className="show-comment-box">
-                <img
-                  src={comm.profile_pic}
-                  className="profile-com"
-                  alt="profile"
-                />
-                <div className="comment-body">
-                  <h4>{comm.name}</h4>
-                  <p>{comm.message}</p>
-                </div>
-                {userID === comm.userID || owner.userID === userID ? (
-                  <FontAwesomeIcon
-                    icon={faTrashAlt as IconProp}
-                    className="edit-icon"
-                    onClick={() => deleteCommenthandler(comm._id, comm.userID)}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <Comments
+          _id={_id}
+          comments={comments}
+          commentBtnClick={commentBtnClick}
+          userID={userID}
+          token={token}
+          owner={owner}
+          dispatch={dispatch}
+        />
       </div>
     </div>
   );

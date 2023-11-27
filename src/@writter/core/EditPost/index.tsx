@@ -91,28 +91,28 @@ const EditPost = ({
       <div className="inner-modal" style={{ display: boxDisplay }}>
         <div className="modal-heading-box">
           <h2 className="modal-heading">Edit your composition</h2>
-          <button className="close" onClick={closeModal}>
+          <button className="close pointer" onClick={closeModal}>
             X
           </button>
         </div>
         <hr />
         <div className="post-tabs">
           <button
-            className={tab === 1 ? "btn-tab active" : "btn-tab"}
+            className={tab === 1 ? "btn-tab active-underline" : "btn-tab"}
             onClick={() => setTabs(1)}
           >
             <FontAwesomeIcon icon={faPen as IconProp} className="tab-icon" />{" "}
             Write
           </button>
           <button
-            className={tab === 2 ? "btn-tab active" : "btn-tab"}
+            className={tab === 2 ? "btn-tab active-underline" : "btn-tab"}
             onClick={() => setTabs(2)}
           >
             <FontAwesomeIcon icon={faEye as IconProp} className="tab-icon" />{" "}
             Preview
           </button>
           <button
-            className={tab === 3 ? "btn-tab active" : "btn-tab"}
+            className={tab === 3 ? "btn-tab active-underline" : "btn-tab"}
             onClick={() => setTabs(3)}
           >
             <FontAwesomeIcon

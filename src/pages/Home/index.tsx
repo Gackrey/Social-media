@@ -1,22 +1,30 @@
 import "./index.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import { Navbar, AddPost, Post } from "@writter/core";
-import { getLoadStatus, getPosts, getAllPost } from "@writter/redux/actions";
+import {
+  Navbar,
+  AddPost,
+  Post,
+  PostSkeleton,
+  ConnectToPeople,
+} from "@writter/core";
+import {
+  getLoadStatus,
+  getPosts,
+  getAllPost,
+  getUsers,
+} from "@writter/redux/actions";
 import { getID, getStatus, getUserData } from "@writter/redux/actions";
 import { postState } from "@writter/redux/models";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ConnectToPeople } from "../ConnectToPeople";
 import { useNavigate } from "react-router";
 
 export const Home = () => {
   const navigate = useNavigate();
   const posts = useSelector(getPosts);
-  const l_status = useSelector(getLoadStatus);
-  const user_status = useSelector(getStatus);
+  const loadStatus = useSelector(getLoadStatus);
+  const userStatus = useSelector(getStatus);
   const dispatch = useDispatch();
   const userID = useSelector(getID);
   const [allPosts, setPosts] = useState<Array<postState>>([]);
@@ -42,25 +50,20 @@ export const Home = () => {
 
   useEffect(() => {
     (async function () {
+      await dispatch(getUsers());
       await dispatch(getAllPost());
     })();
   }, [dispatch]);
 
   useEffect(() => {
     setPosts(posts);
-    setPostLoadStatus(l_status);
-    setUserLoadStatus(user_status);
-  }, [posts, l_status, user_status]);
+    setPostLoadStatus(loadStatus);
+    setUserLoadStatus(userStatus);
+  }, [posts, loadStatus, userStatus]);
+
   return (
     <div className="home">
       <Navbar />
-      <div className="spinner">
-        {postLoadingStatus === "loading" || userLoadingStatus === "loading" ? (
-          <Loader type="Oval" color="#00BFFF" height={50} width={50} />
-        ) : (
-          ""
-        )}
-      </div>
       <ToastContainer />
       <div className="home-body">
         <div className="home-innerbody-1">
@@ -68,35 +71,46 @@ export const Home = () => {
           <div className="mobile-home-innerbody-2">
             <ConnectToPeople />
           </div>
-          <div className="all-posts">
-            {allPosts.length > 0 ? (
-              allPosts.map(
-                ({
-                  _id,
-                  description,
-                  picture,
-                  owner,
-                  liked_by,
-                  comments,
-                  createdAt,
-                }) => (
-                  <Post
-                    _id={_id}
-                    description={description}
-                    picture={picture}
-                    owner={owner}
-                    liked_by={liked_by}
-                    comments={comments}
-                    createdAt={createdAt}
-                  />
+          {postLoadingStatus === "loading" ||
+          userLoadingStatus === "loading" ? (
+            <>
+              <div>
+                <PostSkeleton />
+                <PostSkeleton />
+                <PostSkeleton />
+              </div>
+            </>
+          ) : (
+            <div className="all-posts">
+              {allPosts.length > 0 ? (
+                allPosts.map(
+                  ({
+                    _id,
+                    description,
+                    picture,
+                    owner,
+                    liked_by,
+                    comments,
+                    createdAt,
+                  }) => (
+                    <Post
+                      _id={_id}
+                      description={description}
+                      picture={picture}
+                      owner={owner}
+                      liked_by={liked_by}
+                      comments={comments}
+                      createdAt={createdAt}
+                    />
+                  )
                 )
-              )
-            ) : (
-              <span className="no-posts-msg">
-                Create Posts or follow users to see posts
-              </span>
-            )}
-          </div>
+              ) : (
+                <span className="no-posts-msg">
+                  Create Posts or follow users to see posts
+                </span>
+              )}
+            </div>
+          )}
         </div>
         <div className="home-innerbody-2">
           <ConnectToPeople />

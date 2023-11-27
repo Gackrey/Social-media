@@ -80,7 +80,7 @@ const CreatePost = ({ state }: stateType) => {
       <div className="inner-modal" style={{ display: boxDisplay }}>
         <div className="modal-heading-box">
           <h2 className="modal-heading">Start a Composition</h2>
-          <button className="close" onClick={closeModal}>
+          <button className="close pointer" onClick={closeModal}>
             X
           </button>
         </div>
@@ -152,34 +152,34 @@ const CreatePost = ({ state }: stateType) => {
           <div className="add-ons">
             <FontAwesomeIcon
               icon={faBold as IconProp}
-              className="addon-icon"
+              className="addon-icon pointer"
               onClick={() => setBody((curr) => curr + "****")}
             />
             <FontAwesomeIcon
               icon={faItalic as IconProp}
-              className="addon-icon"
+              className="addon-icon pointer"
               onClick={() => setBody((curr) => curr + "**")}
             />
             <FontAwesomeIcon
               icon={faList as IconProp}
-              className="addon-icon"
+              className="addon-icon pointer"
               onClick={() => setBody((curr) => curr + "\n* ")}
             />
             <FontAwesomeIcon
               icon={faHeading as IconProp}
-              className="addon-icon"
+              className="addon-icon pointer"
               onClick={() => setBody((curr) => curr + "# ")}
             />
             <input
               type="file"
-              className="custom-image-input"
+              className="custom-image-input pointer"
               accept="image/*"
               required
               onChange={(e) => uploadImage(e.target.files)}
             />
           </div>
           <div className="btn-div">
-            <button className="btn-post" onClick={createPost}>
+            <button className="btn-post pointer" onClick={createPost}>
               Post
             </button>
           </div>

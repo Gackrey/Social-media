@@ -16,7 +16,7 @@
 }
 .heading {
   font-family: "Courgette", cursive;
-  cursor: default;
+  cursor: pointer;
 }
 .heading > span {
   font-family: "Oleo Script", cursive;

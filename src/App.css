@@ -2,8 +2,37 @@
 .App{
     font-family: 'Poppins', sans-serif;
 }
+
+body::-webkit-scrollbar,
+.home-innerbody-2::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+body::-webkit-scrollbar-track, 
+.home-innerbody-2::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb,
+.home-innerbody-2::-webkit-scrollbar-thumb {
+  background: rgba(127, 127, 127, 0.8);
+  border-radius: 10px;
+}
+
+.mb-0{
+ margin-bottom: 0 !important;
+}
+
+.bg-color{
+  background-color: whitesmoke;
+}
+
+.pointer{
+  cursor: pointer;
+}
 .no-posts-msg{
-    color: gray;
-    text-align: center;
-    font-size: 18px;
+  color: gray;
+  text-align: center;
+  font-size: 18px;
 }

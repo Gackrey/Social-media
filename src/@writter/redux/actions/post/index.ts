@@ -16,6 +16,8 @@ import {
   delcommentPostType,
   updatePostType,
   updatePostResponse,
+  getSinglePostResponse,
+  postSearchState,
 } from "../../models";
 
 const initialState: stateType = {
@@ -45,6 +47,16 @@ export const deletePost = createAsyncThunk(
         headers: { authorization: token },
         data: { _id, owner },
       }
+    );
+    return response.data;
+  }
+);
+
+export const getSinglePost = createAsyncThunk(
+  "/get-post",
+  async ({ _id }: postSearchState) => {
+    const response = await axios.get<getSinglePostResponse>(
+      `${API_URL}/post/show?id=${_id}`
     );
     return response.data;
   }
@@ -127,7 +139,7 @@ export const updatePost = createAsyncThunk(
   }
 );
 export const postSlice = createSlice({
-  name: "auth",
+  name: "post",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -150,6 +162,16 @@ export const postSlice = createSlice({
         state.loadstatus = "done";
       })
       .addCase(getAllPost.rejected, (state) => {
+        state.loadstatus = "error";
+      })
+      .addCase(getSinglePost.pending, (state) => {
+        state.loadstatus = "loading";
+      })
+      .addCase(getSinglePost.fulfilled, (state, action) => {
+        state.allPosts = [action.payload.post];
+        state.loadstatus = "done";
+      })
+      .addCase(getSinglePost.rejected, (state) => {
         state.loadstatus = "error";
       })
       .addCase(deletePost.pending, (state) => {

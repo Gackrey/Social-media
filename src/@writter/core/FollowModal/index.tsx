@@ -77,7 +77,7 @@ export const FollowModal = ({
           follower.length > 0 ? (
             follower.map((user) => {
               return (
-                <div className="user-box">
+                <div className="user-box-modal">
                   <img
                     src={user.profile_pic}
                     className="profile"
@@ -97,7 +97,7 @@ export const FollowModal = ({
           following.length > 0 ? (
             following.map((user) => {
               return (
-                <div className="user-box">
+                <div className="user-box-modal">
                   <img
                     src={user.profile_pic}
                     className="profile"

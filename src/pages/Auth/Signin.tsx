@@ -44,7 +44,7 @@ export const Signin = () => {
         <div className="img-box">
           <img src="/img/front.jpg" className="image" alt="img" />
           <div className="text-overlay">
-            <h1 className="heading-st">
+            <h1 className="heading-st mb-0">
               Writter <span>Club</span>
             </h1>
             <p>A place where writters connect</p>
@@ -54,7 +54,7 @@ export const Signin = () => {
           <h1 className="heading-st">
             Sign <span>IN</span>
           </h1>
-          <div>
+          <div className="flex">
             <input
               type="text"
               className="input"
@@ -72,7 +72,7 @@ export const Signin = () => {
               onChange={(e) => setlastName(e.target.value)}
             />
           </div>
-          <div>
+          <div className="flex">
             <input
               type="email"
               className="input"
