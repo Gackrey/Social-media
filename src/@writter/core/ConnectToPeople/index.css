@@ -48,6 +48,9 @@
   .heading-ctp {
     text-align: center;
   }
+  .user-box{
+    margin: 1rem;
+  }
   .user-box,
   .user-content-box {
     flex-direction: column;
