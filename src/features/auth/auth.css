@@ -1,0 +1,234 @@
+@import url("https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+.signin {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+}
+.signin::before {
+  content: "";
+  background: url("./Img/back.jpg") center/cover;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  opacity: 0.7;
+}
+.signin-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.img-box {
+  position: relative;
+  height: 100%;
+}
+.image {
+  width: 350px;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.text-overlay {
+  position: absolute;
+  top: 18%;
+  left: 10%;
+  margin: 0;
+  color: white;
+}
+.text-overlay > h1 {
+  font-family: "Oleo Script", cursive;
+  font-size: 2.5rem;
+}
+.text-overlay > p {
+  font-family: "Courgette", cursive;
+}
+.heading-st {
+  text-align: center;
+  color: white;
+  margin-bottom: 1rem;
+}
+.signup-form{
+  width: 30vw;
+  padding: 10px;
+}
+.heading-st > span {
+  color: #06f;
+}
+.inp-box {
+  text-align: center;
+}
+.input {
+  background-color: white;
+  padding: 10px 16px;
+  font-size: 15px;
+  margin: 5px;
+  border-radius: 10px;
+  border: 2px solid black;
+  outline: none;
+}
+.input-log {
+  width: -webkit-fill-available;
+}
+.input-prof {
+  display: block;
+}
+.input-bio {
+  display: block;
+  height: 3rem;
+}
+.password {
+  background-color: white;
+  padding: 10px 7px;
+  font-size: 15px;
+  margin: 5px;
+  border-radius: 10px;
+  border: 2px solid black;
+  outline: none;
+}
+.password-log {
+  padding: 10px 16px;
+}
+.pass-box {
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+.pass-box-log {
+  width: 92%;
+}
+.other-details {
+  margin: 0;
+  text-align: start;
+  margin: 5px 0 0 1rem;
+  font-size: 17px;
+  font-weight: bold;
+  color: white;
+}
+.other-details-log {
+  margin: 5px 1rem 0 1rem;
+}
+.submit {
+  background-color: #06f;
+  padding: 10px 30px;
+  font-size: 17px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  margin: 1rem 0 0 0.5rem;
+  font-weight: bold;
+  cursor: default;
+}
+.guest-login {
+  background-color: white;
+  padding: 10px 30px;
+  font-size: 17px;
+  color: #06f;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  margin: 1rem 0 0 0.5rem;
+  font-weight: bold;
+  cursor: default;
+}
+.submit-disable {
+  background-color: #20529d;
+  padding: 10px 30px;
+  font-size: 17px;
+  color: #696969;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  margin: 1rem 0 0 0.5rem;
+  font-weight: bold;
+  cursor:not-allowed;
+}
+.login-btn {
+  text-decoration: none;
+  color: #06f;
+  display: inline;
+  margin-left: 3px;
+}
+.flex {
+  display: flex;
+}
+.add-details {
+  margin: 1rem;
+}
+input[type="file"] {
+  color: rgba(0, 0, 0, 0);
+}
+.custom-file-input {
+  width: 134px;
+  margin-left: 10px;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: "Upload Profile pic";
+  display: inline-block;
+  background: linear-gradient(315deg, #20bf55 0%, #01baef 74%);
+  background-color: #20bf55;
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.profile-pic {
+  display: flex;
+  margin: auto;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+.error{
+  color: red;
+  font-size: 14px;
+  word-break: break-word;;
+  font-weight: bold;
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  .signin-box {
+    background-color: transparent;
+  }
+  .heading-st {
+    color: black;
+  }
+  .img-box {
+    display: none;
+  }
+  .flex {
+    display: block;
+  }
+  .signup-form{
+    width: 97vw;
+  }
+  .input {
+    width: -webkit-fill-available;
+  }
+  .other-details {
+    color: black;
+  }
+  .pass-box {
+    width: 80vw;
+  }
+}

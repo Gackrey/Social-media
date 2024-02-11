@@ -1,0 +1,51 @@
+.update-details {
+  margin: auto;
+  margin-top: 2rem;
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tab {
+  margin: 0 1rem;
+  cursor: default;
+}
+.active {
+  border-bottom: 4px solid rgb(4, 212, 212);
+}
+label {
+  margin-left: 8px;
+  display: block;
+}
+.signup-form {
+  display: block;
+  margin: auto;
+}
+.add-details {
+  margin: auto;
+  width: 30vw;
+  padding: 10px;
+}
+.heading-ud {
+  color: black;
+  text-align: center;
+}
+.heading-ud > span {
+  color: #06f;
+}
+.change-pass{
+  padding: 10px;
+  font-size: 16px;
+  display: block;
+  font-weight: bold;
+  border-radius: 10px;
+}
+.error{
+  text-align: start;
+}
+@media screen and (max-width: 768px) {
+  .add-details {
+    width: 97vw;
+  }
+}
