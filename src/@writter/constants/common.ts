@@ -1,1 +1,1 @@
-export const API_URL = 'https://fly-pea-coat.cyclic.app'
+export const API_URL = 'https://social-media-backend-jbxq.onrender.com'
